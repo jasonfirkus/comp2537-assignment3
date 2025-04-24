@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Members</title>
+
+    <link rel="icon" href="/assets/leuxs-logo.png" />
+    <link rel="stylesheet" href="/styles/theme.css" />
+
+    <style>
+      #container {
+        height: auto;
+
+        header {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding-top: 25dvh;
+
+          #links-container {
+            width: 375px;
+            padding: 10px 0px 10px 0px;
+          }
+          h1 {
+            font-size: var(--h1-font-size-primary);
+            margin: 15px;
+          }
+        }
+        #members-img {
+          margin-top: 50px;
+          max-width: 800px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <h1>Hello, <span id="name"></span></h1>
+        <div id="links-container"><a href="/">Home</a><a id="logout">Logout</a></div>
+      </header>
+      <div id="img-container">
+        <img id="members-img" src="" alt="Members Image" />
+      </div>
+    </div>
+
+    <script type="module" src="/scripts/members.js"></script>
+    <script type="module" src="/scripts/isauth.js"></script>
+  </body>
+</html>

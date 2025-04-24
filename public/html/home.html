@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+
+    <link rel="icon" href="/assets/leuxs-logo.png" />
+    <link rel="stylesheet" href="/styles/theme.css" />
+
+    <style>
+      #container {
+        h1 {
+          font-size: var(--h1-font-size-primary);
+          margin: 20px;
+        }
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>Hello, <span id="name"></span></h1>
+      <div id="links-container">
+        <a href="/signup" class="anon">Sign up</a>
+        <a href="/login" class="anon">Login</a>
+        <a href="/members" class="member">Members</a>
+        <a href="/logout" class="member">Logout</a>
+      </div>
+    </div>
+
+    <script type="module" src="/scripts/isauth.js"></script>
+    <script type="module" src="/scripts/home.js"></script>
+  </body>
+</html>

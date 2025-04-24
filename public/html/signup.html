@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up</title>
+
+    <link rel="icon" href="/assets/leuxs-logo.png" />
+    <link rel="stylesheet" href="/styles/theme.css" />
+
+    <style>
+      h1 {
+        font-size: 2.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="form-wrapper">
+        <h1>Sign up</h1>
+        <form action="/signup" method="POST">
+          <input placeholder="Name" type="text" name="name" id="name" autocomplete="off" />
+          <input placeholder="Email" type="email" name="email" id="email" autocomplete="off" />
+          <input
+            placeholder="Password"
+            type="password"
+            name="password"
+            id="password"
+            autocomplete="off" />
+          <input type="submit" class="button" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
