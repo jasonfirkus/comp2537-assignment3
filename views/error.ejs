@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login error</title>
+    <title><%= type %> error</title>
 
     <link rel="icon" href="/assets/leuxs-logo.png" />
     <link rel="stylesheet" href="/styles/theme.css" />
@@ -21,11 +21,9 @@
   </head>
   <body>
     <div id="container">
-      <h1>Error logging in</h1>
-      <p>
-        <!-- MESSAGE -->
-      </p>
-      <a href="/login">Try again</a>
+      <h1><%= errorTitle %></h1>
+      <p><%= errorMessage %></p>
+      <a href="/<%= type %>">Try again</a>
     </div>
   </body>
 </html>

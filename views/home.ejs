@@ -23,16 +23,13 @@
   </head>
   <body>
     <div id="container">
-      <h1>Hello, <span id="name"></span></h1>
+      <h1><%= anon ? 'Please sign up or login' : 'Hello, ' + name %></h1>
       <div id="links-container">
-        <a href="/signup" class="anon">Sign up</a>
-        <a href="/login" class="anon">Login</a>
-        <a href="/members" class="member">Members</a>
-        <a href="/logout" class="member">Logout</a>
+        <a href="/signup" class="<%= anon ? '' : 'hidden' %>">Sign up</a>
+        <a href="/login" class="<%= anon ? '' : 'hidden' %>">Login</a>
+        <a href="/members" class="<%= anon ? 'hidden' : '' %>">Members</a>
+        <a href="/logout" class="<%= anon ? 'hidden' : '' %>">Logout</a>
       </div>
     </div>
-
-    <script type="module" src="/scripts/isauth.js"></script>
-    <script type="module" src="/scripts/home.js"></script>
   </body>
 </html>

@@ -9,6 +9,9 @@ import MongoStore from "connect-mongo";
 import { MongoClient } from "mongodb";
 import session from "express-session";
 
+import { createServer } from "livereload";
+import connectLiveReload from "connect-livereload";
+
 const app = express();
 const PORT = 3000;
 const HOUR_IN_SECONDS = 60 * 60;
@@ -31,6 +34,12 @@ app.use(
   })
 );
 
+const liveReloadServer = createServer({ extraExts: ["ejs"] });
+liveReloadServer.watch("./public/");
+liveReloadServer.watch("./views/");
+app.use(connectLiveReload());
+
+app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/styles", express.static("./public/styles"));
@@ -46,17 +55,14 @@ const loginSchema = Joi.object({
   email: Joi.string().email().max(30).required(),
   password: Joi.string().max(20).required(),
 });
-const signupErrorFile = readFileSync("./public/html/signup-error.html", "utf8");
-const loginErrorFile = readFileSync("./public/html/login-error.html", "utf8");
 
 app.get("/authenticated", async (req, res) => {
-  console.log("id", req.session.userId);
+  console.log("id", req.session?.userId);
 
-  if (req.session.userId) {
+  if (req.session?.userId) {
     return res.status(200).json({
-      authenticated: true,
       userId: req.session.userId,
-      name: req.session.name,
+      name: req.session?.name,
     });
   }
 
@@ -64,19 +70,36 @@ app.get("/authenticated", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send(readFileSync("./public/html/home.html", "utf8"));
+  res.render("home", { anon: !req.session?.userId, name: req.session?.name });
+});
+
+app.get("/admin", (req, res) => {
+  if (!req.session?.userId) {
+    return res.redirect("/login");
+  } else if (req.session?.role != "admin") {
+    return res.status(403).render("error", {
+      type: "Unauthorized",
+      errorTitle: "Unauthorized",
+      errorMessage: "You are not authorized to view this page",
+    });
+  }
+
+  res.render("admin", { users });
 });
 
 app.get("/signup", (req, res) => {
-  res.send(readFileSync("./public/html/signup.html", "utf8"));
+  res.render("signup");
 });
 
 app.get("/login", (req, res) => {
-  res.send(readFileSync("./public/html/login.html", "utf8"));
+  res.render("login");
 });
 
 app.get("/members", (req, res) => {
-  res.send(readFileSync("./public/html/members.html", "utf8"));
+  if (!req.session?.userId) {
+    return res.redirect("/");
+  }
+  res.render("members", { name: req.session?.name });
 });
 
 app.get("/logout", (req, res) => {
@@ -94,19 +117,23 @@ app.post("/signup", async (req, res) => {
     });
 
     if (validationError) {
-      return res
-        .status(400)
-        .send(signupErrorFile.replace("<!-- FIELD -->", validationError.details[0].context.key));
+      return res.status(400).render("error", {
+        type: "signup",
+        errorTitle: "Error signing up",
+        errorMessage: `${validationError.details[0].context.key} is required`,
+      });
     }
 
     const { insertedId } = await db.collection("users").insertOne({
       name,
       email,
       password: await bcrypt.hash(password, 10),
+      role: "user",
     });
 
     req.session.userId = insertedId; //start session
     req.session.name = name;
+    req.session.role = "user";
     req.session.save();
     console.log("Inserted user with id: ", insertedId);
     res.redirect("/members");
@@ -126,30 +153,35 @@ app.post("/login", async (req, res) => {
     });
 
     if (validationError) {
-      return res
-        .status(400)
-        .send(
-          loginErrorFile.replace(
-            "<!-- MESSAGE -->",
-            `${validationError.details[0].context.key} is required`
-          )
-        );
+      return res.status(400).render("error", {
+        type: "login",
+        errorTitle: "Error logging in",
+        errorMessage: `${validationError.details[0].context.key} is required`,
+      });
     }
 
     const user = await db.collection("users").findOne({ email });
     if (!user) {
-      return res.status(401).send(loginErrorFile.replace("<!-- MESSAGE -->", "Invalid email"));
+      return res.status(400).render("error", {
+        type: "login",
+        errorTitle: "Error logging in",
+        errorMessage: "Invalid email",
+      });
     }
 
     if (await bcrypt.compare(password, user.password)) {
       req.session.userId = user._id; //start session
       req.session.name = user.name;
+      req.session.role = user.role;
       req.session.save();
+
       return res.redirect("/members");
     } else {
-      return res
-        .status(401)
-        .send(loginErrorFile.replace("<!-- MESSAGE -->", "Invalid email/password combination"));
+      return res.status(400).render("error", {
+        type: "login",
+        errorTitle: "Error logging in",
+        errorMessage: "Invalid email/password combination",
+      });
     }
   } catch (error) {
     console.log("Error logging in user", error);
@@ -158,7 +190,7 @@ app.post("/login", async (req, res) => {
 });
 
 app.use((req, res, next) => {
-  res.status(404).send(readFileSync("./public/html/doesnotexist.html", "utf8"));
+  res.status(404).render("doesnotexist");
 });
 
 app.listen(PORT, () => {

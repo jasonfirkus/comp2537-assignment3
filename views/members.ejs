@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Members</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"></script>
+
+    <link rel="icon" href="/assets/leuxs-logo.png" />
+    <link rel="stylesheet" href="/styles/theme.css" />
+
+    <style>
+      #container {
+        height: auto;
+        padding: 10px;
+
+        header {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding-top: 25dvh;
+
+          #links-container {
+            width: 375px;
+            padding: 10px 0px 10px 0px;
+          }
+          h1 {
+            font-size: var(--h1-font-size-primary);
+            margin: 15px;
+            font-weight: 600;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <h1>Hello, <%= name %></h1>
+        <div id="links-container"><a href="/">Home</a><a id="logout">Logout</a></div>
+      </header>
+
+      <div class="container py-5 px-0 mx-0 w-100">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <div class="col d-flex align-items-center justify-content-center">
+            <img src="/assets/lexus-lc.jpg" alt="Lexus LC" class="img-fluid" />
+          </div>
+          <div class="col d-flex align-items-center justify-content-center">
+            <img src="/assets/lexus-is.jpg" alt="Lexus IS" class="img-fluid" />
+          </div>
+          <div class="col d-flex align-items-center justify-content-center">
+            <img src="/assets/lexus-lfa.jpg" alt="Lexus LFA" class="img-fluid" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/scripts/members.js"></script>
+  </body>
+</html>
