@@ -1,5 +1,4 @@
 import express from "express";
-import { readFileSync } from "fs";
 
 import Joi from "joi";
 import bcrypt from "bcrypt";
@@ -56,33 +55,35 @@ const loginSchema = Joi.object({
   password: Joi.string().max(20).required(),
 });
 
-app.get("/authenticated", async (req, res) => {
-  console.log("id", req.session?.userId);
-
-  if (req.session?.userId) {
-    return res.status(200).json({
-      userId: req.session.userId,
-      name: req.session?.name,
-    });
-  }
-
-  res.status(401).json({ authenticated: false });
-});
-
 app.get("/", (req, res) => {
   res.render("home", { anon: !req.session?.userId, name: req.session?.name });
 });
 
-app.get("/admin", (req, res) => {
-  if (!req.session?.userId) {
-    return res.redirect("/login");
-  } else if (req.session?.role != "admin") {
-    return res.status(403).render("error", {
-      type: "Unauthorized",
-      errorTitle: "Unauthorized",
-      errorMessage: "You are not authorized to view this page",
-    });
-  }
+app.get("/admin", async (req, res) => {
+  // if (!req.session?.userId) {
+  //   return res.redirect("/login");
+  // } else if (req.session?.role != "admin") {
+  //   return res.status(403).render("error", {
+  //     type: "Unauthorized",
+  //     errorTitle: "Unauthorized",
+  //     errorMessage: "You are not authorized to view this page",
+  //   });
+  // }
+
+  const users = await db
+    .collection("users")
+    .find(
+      {},
+      {
+        projection: {
+          name: 1,
+          email: 1,
+          role: 1,
+          _id: 0,
+        },
+      }
+    )
+    .toArray();
 
   res.render("admin", { users });
 });
