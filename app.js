@@ -85,22 +85,22 @@ app.get("/admin", async (req, res) => {
     )
     .toArray();
 
-  res.render("admin", { users });
+  res.render("admin", { anon: false, users });
 });
 
 app.get("/signup", (req, res) => {
-  res.render("signup");
+  res.render("signup", { anon: true });
 });
 
 app.get("/login", (req, res) => {
-  res.render("login");
+  res.render("login", { anon: true });
 });
 
 app.get("/members", (req, res) => {
   if (!req.session?.userId) {
     return res.redirect("/");
   }
-  res.render("members", { name: req.session?.name });
+  res.render("members", { anon: false, name: req.session?.name });
 });
 
 app.get("/logout", (req, res) => {
@@ -191,7 +191,7 @@ app.post("/login", async (req, res) => {
 });
 
 app.use((req, res, next) => {
-  res.status(404).render("doesnotexist");
+  res.status(404).render("doesnotexist", { anon: !req.session?.userId });
 });
 
 app.listen(PORT, () => {

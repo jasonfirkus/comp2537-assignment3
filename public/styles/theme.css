@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+
 :root {
-  --grey-border-primary: 1px solid rgb(58, 58, 58);
+  --grey-border-primary: 1px solid rgb(53, 53, 53);
   --input-bg-primary: rgb(22, 22, 22);
   --h1-font-size-primary: clamp(3.5rem, 3.5vw, 5rem);
 }
@@ -104,4 +106,36 @@ form {
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 255, 255, 0.05);
   border: var(--grey-border-primary);
+}
+
+.btn-primary {
+  text-decoration: none;
+  background-color: var(--input-bg-primary);
+  border: var(--grey-border-primary);
+  color: white;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background-color: rgb(41, 41, 41);
+  border: var(--grey-border-primary);
+}
+
+#nav-container {
+  backdrop-filter: blur(20px);
+  background-color: rgba(0, 0, 0, 0.7);
+  line-height: 28px;
+
+  .nav-link {
+    color: rgb(165, 165, 165);
+    background-color: transparent;
+    padding: 5px 12px;
+    font-family: "Geist", sans-serif;
+  }
+  .nav-link:hover {
+    color: white;
+    background-color: rgb(22, 22, 22);
+  }
 }

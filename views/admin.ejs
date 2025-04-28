@@ -3,7 +3,7 @@
 
 <head>
   <title>Admin</title>
-  <%- include("templates/header") %>
+  <%- include("templates/head") %>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
@@ -12,12 +12,11 @@
       color: white;
 
       th {
-        border-bottom: 0.5px solid rgb(95, 95, 95);
-
+        border-bottom: 1px solid rgb(53, 53, 53);
       }
 
       td {
-        border-bottom: 0.5px solid rgb(87, 87, 87);
+        border-bottom: 1px solid rgb(53, 53, 53);
       }
     }
 
@@ -54,15 +53,18 @@
       background-image: none;
       background-color: transparent;
       border: none;
-      border-bottom: 1px solid white;
+      border-bottom: 1px solid rgb(75, 75, 75);
       color: white;
       border-radius: 1px;
+      padding-inline: 2px;
     }
   </style>
 </head>
 
 <body>
   <div id="container">
+    <%- include("templates/header") %>
+
     <table class="table table-hover">
       <thead>
         <tr>
