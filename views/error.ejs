@@ -2,35 +2,23 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= errorTitle %></title>
-
-  <link rel="icon" href="/assets/leuxs-logo.png" />
-  <link rel="stylesheet" href="/styles/theme.css" />
+  <%- include('templates/head') %>
 
   <style>
-    #container {
-      gap: 10px;
-
-      h1 {
-        margin: 0;
-        font-size: 7rem;
-        text-align: left;
-      }
-
-      p {
-        color: rgb(201, 201, 201);
-      }
+    p {
+      color: rgb(201, 201, 201);
     }
   </style>
 </head>
 
 <body>
-  <div id="container">
-    <h1><%= errorTitle %></h1>
+  <div class="gap-2" id="container">
+    <%- include('templates/nav') %>
+
+    <h1 class="fw-bold fs-1"><%= errorTitle %></h1>
     <p><%= errorMessage %></p>
-    <a href="<%= link %>"><%= buttonText %></a>
+    <a class="btn btn-primary" href="<%= link %>"><%= buttonText %></a>
   </div>
 </body>
 

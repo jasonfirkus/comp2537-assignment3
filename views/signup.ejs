@@ -4,25 +4,28 @@
 <head>
   <title>Sign up</title>
   <%- include('templates/head') %>
-
-  <style>
-    h1 {
-      font-size: 2.5rem;
-    }
-  </style>
 </head>
 
 <body>
   <div id="container">
-    <%- include('templates/header') %>
+    <%- include('templates/nav') %>
 
     <div id="form-wrapper">
-      <h1>Sign up</h1>
+      <h1 class="mb-3">Signup</h1>
       <form action="/signup" method="POST">
-        <input placeholder="Name" type="text" name="name" id="name" autocomplete="off" />
-        <input placeholder="Email" type="email" name="email" id="email" autocomplete="off" />
-        <input placeholder="Password" type="password" name="password" id="password" autocomplete="off" />
-        <input class="btn btn-primary" type="submit" />
+        <div class="form-floating">
+          <input class="form-control" placeholder="Name" type="text" name="name" id="name" autocomplete="off" />
+          <label class="text-secondary" for="name">Name</label>
+        </div>
+        <div class="form-floating">
+          <input class="form-control" placeholder="Email" type="email" name="email" id="email" autocomplete="off" />
+          <label class="text-secondary" for="email">Email</label>
+        </div>
+        <div class="form-floating">
+          <input class="form-control" placeholder="Password" type="password" name="password" id="password" autocomplete="off" />
+          <label class="text-secondary" for="password">Password</label>
+        </div>
+        <input class="btn btn-primary mt-2" type="submit" />
       </form>
     </div>
   </div>

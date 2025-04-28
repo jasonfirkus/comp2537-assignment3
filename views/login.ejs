@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
 
-    <link rel="icon" href="/assets/leuxs-logo.png" />
-    <link rel="stylesheet" href="/styles/theme.css" />
+<head>
+  <title>Login</title>
+  <%- include('templates/head') %>
+</head>
 
-    <style>
-      h1 {
-        font-size: 2.5rem;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="container">
-      <div id="form-wrapper">
-        <h1>Login</h1>
-        <form action="/login" method="POST">
-          <input placeholder="Email" type="email" name="email" id="email" autocomplete="off" />
-          <input
-            placeholder="Password"
-            type="password"
-            name="password"
-            id="password"
-            autocomplete="off" />
-          <input type="submit" class="button" />
-        </form>
-      </div>
+<body>
+  <div id="container">
+    <%- include('templates/nav') %>
+    <div id="form-wrapper">
+      <h1 class="mb-3">Login</h1>
+      <form action="/login" method="POST">
+        <div class="form-floating">
+          <input placeholder="Email" type="email" name="email" class="form-control" id="email" autocomplete="off" />
+          <label class="text-secondary" for="email">Email</label>
+        </div>
+        <div class="form-floating">
+          <input placeholder="Password" type="password" name="password" class="form-control" id="password" autocomplete="off" />
+          <label class="text-secondary" for="password">Password</label>
+        </div>
+        <input type="submit" class="btn btn-primary mt-2" />
+      </form>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

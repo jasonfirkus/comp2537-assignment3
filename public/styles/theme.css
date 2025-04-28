@@ -4,6 +4,13 @@
   --grey-border-primary: 1px solid rgb(53, 53, 53);
   --input-bg-primary: rgb(22, 22, 22);
   --h1-font-size-primary: clamp(3.5rem, 3.5vw, 5rem);
+  --gradient-primary: linear-gradient(
+    90deg,
+    rgb(209, 153, 48),
+    rgb(223, 16, 16),
+    rgb(148, 64, 228)
+  );
+  --shadow-primary: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 255, 255, 0.05);
 }
 
 * {
@@ -16,7 +23,7 @@ body {
   margin: 0;
 
   h1 {
-    background: linear-gradient(90deg, rgb(209, 153, 48), rgb(223, 16, 16), rgb(148, 64, 228));
+    background: var(--gradient-primary);
     background-clip: text;
     color: transparent;
   }
@@ -31,17 +38,9 @@ body {
   height: 100dvh;
 }
 
-#links-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-  padding: 10px 15px 10px 15px;
-  border-radius: 50px;
-  background-color: rgb(8, 8, 8);
-  width: clamp(450px, 30%, 600px);
-
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 255, 255, 0.05);
+footer ul {
+  list-style: none;
+  color: rgb(146, 146, 146);
 }
 
 form {
@@ -51,13 +50,23 @@ form {
   align-items: center;
   gap: 5px;
 
-  input {
+  .form-control {
     border: var(--grey-border-primary);
     padding: 15px 25px 15px 25px;
     width: 300px;
     border-radius: 10px;
     background-color: var(--input-bg-primary);
     color: white;
+  }
+  .form-control:focus {
+    box-shadow: none;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: linear-gradient(var(--input-bg-primary), var(--input-bg-primary)) padding-box,
+      var(--gradient-primary) border-box;
+    background-origin: padding-box, border-box;
+    background-clip: padding-box, border-box;
   }
   input::placeholder {
     color: rgb(151, 151, 151);
@@ -72,23 +81,32 @@ form {
   background-color: rgb(31, 31, 31);
   padding: 65px;
   border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 255, 255, 0.05);
+  box-shadow: var(--shadow-primary);
   border: var(--grey-border-primary);
 }
 
-.btn-primary {
-  text-decoration: none;
-  background-color: var(--input-bg-primary);
+.btn {
   border: var(--grey-border-primary);
   border-radius: 10px;
-  font-weight: 600;
   transition: all 0.2s ease-in;
-  cursor: pointer;
-  width: auto;
+  padding: 7px 12px;
+}
+.btn:hover {
+  border: var(--grey-border-primary);
+}
+.btn-primary {
+  background-color: var(--input-bg-primary);
 }
 .btn-primary:hover {
   background-color: rgb(41, 41, 41);
-  border: var(--grey-border-primary);
+}
+.btn-secondary {
+  background-color: white;
+  color: black;
+}
+.btn-secondary:hover {
+  background-color: rgb(177, 177, 177);
+  color: black;
 }
 
 #nav-container {
@@ -105,4 +123,8 @@ form {
     color: white;
     background-color: rgb(22, 22, 22);
   }
+}
+
+.fs-1 {
+  font-size: 3.5rem !important;
 }

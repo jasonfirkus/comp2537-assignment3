@@ -81,6 +81,7 @@ app.get("/admin", isAuthenticated, async (req, res) => {
       errorMessage: "ERR 403: You are not authorized to view this page",
       link: "/login",
       buttonText: "Login",
+      anon: true,
     });
   }
 
@@ -130,9 +131,11 @@ app.post("/signup", async (req, res) => {
 
     if (validationError) {
       return res.status(400).render("error", {
-        type: "signup",
-        errorTitle: "Error signing up",
-        errorMessage: `${validationError.details[0].context.key} is required`,
+        errorTitle: "Signup Error",
+        errorMessage: `"${validationError.details[0].context.key}" is required`,
+        link: "/signup",
+        buttonText: "Try Again",
+        anon: true,
       });
     }
 
@@ -166,18 +169,22 @@ app.post("/login", async (req, res) => {
 
     if (validationError) {
       return res.status(400).render("error", {
-        type: "login",
-        errorTitle: "Error logging in",
-        errorMessage: `${validationError.details[0].context.key} is required`,
+        errorTitle: "Login Error",
+        errorMessage: `"${validationError.details[0].context.key}" is required`,
+        link: "/login",
+        buttonText: "Try Again",
+        anon: true,
       });
     }
 
     const user = await db.collection("users").findOne({ email });
     if (!user) {
       return res.status(400).render("error", {
-        type: "login",
-        errorTitle: "Error logging in",
+        errorTitle: "Login Error",
         errorMessage: "Invalid email",
+        link: "/login",
+        buttonText: "Try Again",
+        anon: true,
       });
     }
 
@@ -190,9 +197,11 @@ app.post("/login", async (req, res) => {
       return res.redirect("/members");
     } else {
       return res.status(400).render("error", {
-        type: "login",
-        errorTitle: "Error logging in",
+        errorTitle: "Login Error",
         errorMessage: "Invalid email/password combination",
+        link: "/login",
+        buttonText: "Try Again",
+        anon: true,
       });
     }
   } catch (error) {

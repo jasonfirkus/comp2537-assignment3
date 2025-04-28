@@ -2,36 +2,49 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home</title>
-
-  <link rel="icon" href="/assets/leuxs-logo.png" />
-  <link rel="stylesheet" href="/styles/theme.css" />
+  <%- include("templates/head") %>
 
   <style>
-    #container {
-      h1 {
-        font-size: var(--h1-font-size-primary);
-        margin: 20px;
+    .hidden {
+      display: none;
+    }
+
+    nav.navbar {
+      position: relative;
+
+      #nav-container {
+        margin: 0 !important;
       }
     }
 
-    .hidden {
-      display: none;
+    #container {
+      justify-content: unset;
+
+      #wrapper {
+        margin-top: auto;
+        margin-bottom: auto;
+        gap: 100px;
+
+        p {
+          padding-left: 19px;
+          color: rgb(170, 170, 170);
+        }
+      }
     }
   </style>
 </head>
 
 <body>
   <div id="container">
-    <h1><%= anon ? 'Please sign up or login' : 'Hello, ' + name %></h1>
-    <div id="links-container">
-      <a href="/signup" class="<%= anon ? '' : 'hidden' %>">Sign up</a>
-      <a href="/login" class="<%= anon ? '' : 'hidden' %>">Login</a>
-      <a href="/members" class="<%= anon ? 'hidden' : '' %>">Members</a>
-      <a href="/logout" class="<%= anon ? 'hidden' : '' %>">Logout</a>
+    <div id="wrapper" class="d-flex flex-row">
+      <div class="d-flex flex-column">
+        <h1 class="fs-1 ps-3 mb-1"><%= anon ? 'Please sign up or login' : 'Hello, ' + name %></h1>
+        <p class="fs-4 mb-3">Welcome back</p>
+      </div>
+      <%- include("templates/nav") %>
     </div>
+    <%- include("templates/footer") %>
   </div>
 </body>
 
