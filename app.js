@@ -55,20 +55,34 @@ const loginSchema = Joi.object({
   password: Joi.string().max(20).required(),
 });
 
+/**
+ * Middleware function to check if a user has a valid session and
+ * Renders the home page if they are don't.
+ *
+ * @param {Object} req - The express request object.
+ * @param {Object} res - The express response object.
+ * @param {Function} next - The next middleware function.
+ */
+function isAuthenticated(req, res, next) {
+  if (req.session?.userId) {
+    return next();
+  }
+  return res.redirect("/");
+}
+
 app.get("/", (req, res) => {
   res.render("home", { anon: !req.session?.userId, name: req.session?.name });
 });
 
-app.get("/admin", async (req, res) => {
-  // if (!req.session?.userId) {
-  //   return res.redirect("/login");
-  // } else if (req.session?.role != "admin") {
-  //   return res.status(403).render("error", {
-  //     type: "Unauthorized",
-  //     errorTitle: "Unauthorized",
-  //     errorMessage: "You are not authorized to view this page",
-  //   });
-  // }
+app.get("/admin", isAuthenticated, async (req, res) => {
+  if (req.session?.role != "admin") {
+    return res.status(403).render("error", {
+      errorTitle: "Unauthorized",
+      errorMessage: "ERR 403: You are not authorized to view this page",
+      link: "/login",
+      buttonText: "Login",
+    });
+  }
 
   const users = await db
     .collection("users")
@@ -96,14 +110,11 @@ app.get("/login", (req, res) => {
   res.render("login", { anon: true });
 });
 
-app.get("/members", (req, res) => {
-  if (!req.session?.userId) {
-    return res.redirect("/");
-  }
+app.get("/members", isAuthenticated, (req, res) => {
   res.render("members", { anon: false, name: req.session?.name });
 });
 
-app.get("/logout", (req, res) => {
+app.get("/logout", isAuthenticated, (req, res) => {
   req.session.destroy();
   return res.redirect("/");
 });

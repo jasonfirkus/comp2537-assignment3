@@ -12,7 +12,7 @@
 
 body {
   background-color: rgb(21, 21, 21);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Geist", sans-serif;
   margin: 0;
 
   h1 {
@@ -20,21 +20,6 @@ body {
     background-clip: text;
     color: transparent;
   }
-}
-
-a {
-  text-decoration: none;
-  padding: 10px 15px 10px 15px;
-  background-color: var(--input-bg-primary);
-  border: var(--grey-border-primary);
-  color: white;
-  border-radius: 10px;
-  font-weight: 600;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-}
-a:hover {
-  background-color: rgb(41, 41, 41);
 }
 
 #container {
@@ -77,23 +62,6 @@ form {
   input::placeholder {
     color: rgb(151, 151, 151);
   }
-
-  .button {
-    text-decoration: none;
-    padding: 10px 15px 10px 15px;
-    background-color: var(--input-bg-primary);
-    border: var(--grey-border-primary);
-    color: white;
-    border-radius: 10px;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out;
-    cursor: pointer;
-    width: auto;
-    margin-top: 20px;
-  }
-  .button:hover {
-    background-color: rgb(41, 41, 41);
-  }
 }
 
 #form-wrapper {
@@ -112,11 +80,11 @@ form {
   text-decoration: none;
   background-color: var(--input-bg-primary);
   border: var(--grey-border-primary);
-  color: white;
   border-radius: 10px;
   font-weight: 600;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in;
   cursor: pointer;
+  width: auto;
 }
 .btn-primary:hover {
   background-color: rgb(41, 41, 41);
@@ -132,7 +100,6 @@ form {
     color: rgb(165, 165, 165);
     background-color: transparent;
     padding: 5px 12px;
-    font-family: "Geist", sans-serif;
   }
   .nav-link:hover {
     color: white;

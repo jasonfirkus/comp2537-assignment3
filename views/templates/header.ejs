@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md fixed-top py-4" data-bs-theme="dark">
   <div id="nav-container" class="container w-auto py-3 px-4 rounded-pill gap-2">
-    <a class="navbar-brand border-0 bg-transparent m-0 p-0 ps-1 pe-4" href="/"><img src="/assets/leuxs-logo.png" alt="Lexus" height="40" width="40"></a>
+    <a class="navbar-brand border-0 bg-transparent m-0 p-0 ps-1 pe-4 lh-base text-light" href="/"><img src="/assets/lexus-logo-white-32.png" alt="Lexus">&nbsp;Lexus</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
       <span class="navbar-toggler-icon"></span>
@@ -26,9 +26,9 @@
             <a class="nav-link border-0 rounded-pill" href="/admin">Admin</a>
           </li>
 
-          <li class="nav-item ps-4 pe-2">
+          <li class="nav-item ps-4 pe-2 d-flex gap-2">
             <a class="btn btn-primary <%= anon ? '' : 'd-none' %>" href="/login">Login</a>
-            <a class="btn btn-primary <%= anon ? '' : 'd-none' %>" href="/signup">Signup</a>
+            <a class="btn btn-primary bg-light text-black <%= anon ? '' : 'd-none' %>" href="/signup">Signup</a>
             <a class="btn btn-primary <%= anon ? 'd-none' : '' %>" href="/logout">Logout</a>
           </li>
       </div>

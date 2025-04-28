@@ -4,19 +4,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><%= type %> error</title>
+  <title><%= errorTitle %></title>
 
   <link rel="icon" href="/assets/leuxs-logo.png" />
   <link rel="stylesheet" href="/styles/theme.css" />
 
   <style>
     #container {
+      gap: 10px;
+
       h1 {
-        margin: 15px;
+        margin: 0;
+        font-size: 7rem;
+        text-align: left;
       }
 
       p {
-        color: white;
+        color: rgb(201, 201, 201);
       }
     }
   </style>
@@ -26,7 +30,7 @@
   <div id="container">
     <h1><%= errorTitle %></h1>
     <p><%= errorMessage %></p>
-    <a href="/<%= type %>">Try again</a>
+    <a href="<%= link %>"><%= buttonText %></a>
   </div>
 </body>
 
