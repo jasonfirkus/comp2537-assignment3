@@ -112,8 +112,13 @@ form {
 #nav-container {
   backdrop-filter: blur(20px);
   background-color: rgba(0, 0, 0, 0.7);
-  line-height: 28px;
+  box-shadow: var(--shadow-primary);
 
+  .nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .nav-link {
     color: rgb(165, 165, 165);
     background-color: transparent;

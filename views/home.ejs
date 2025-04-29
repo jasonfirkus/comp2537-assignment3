@@ -27,7 +27,6 @@
         gap: 100px;
 
         p {
-          padding-left: 19px;
           color: rgb(170, 170, 170);
         }
       }
@@ -37,13 +36,16 @@
 
 <body>
   <div id="container">
-    <div id="wrapper" class="d-flex flex-row">
-      <div class="d-flex flex-column">
-        <h1 class="fs-1 ps-3 mb-1"><%= anon ? 'Please sign up or login' : 'Hello, ' + name %></h1>
-        <p class="fs-4 mb-3">Welcome back</p>
+    <div id="wrapper" class="d-flex flex-row align-items-center justify-content-center">
+      <div class="d-flex flex-column justify-content-center">
+        <h1 class="fs-1 m-0"><%= anon ? 'Please sign up or login' : 'Hello, ' + name %></h1>
+
+        <p class="fs-4 ps-1 m-0 mt-1 <%= anon ? 'd-none' : '' %>">Welcome back</p>
       </div>
+
       <%- include("templates/nav") %>
     </div>
+
     <%- include("templates/footer") %>
   </div>
 </body>

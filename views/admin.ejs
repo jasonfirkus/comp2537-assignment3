@@ -90,7 +90,10 @@
         <% } %>
       </tbody>
     </table>
+
+    <%- include("templates/footer") %>
   </div>
+
   <script>
     document.querySelectorAll(".form-select").forEach((select) => {
       select.addEventListener("click", () => select.parentElement.classList.toggle("open"));
