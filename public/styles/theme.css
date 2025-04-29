@@ -38,9 +38,13 @@ body {
   height: 100dvh;
 }
 
-footer ul {
-  list-style: none;
-  color: rgb(146, 146, 146);
+footer {
+  border-top: 1px solid #1f1f1f;
+
+  ul {
+    list-style: none;
+    color: rgb(146, 146, 146);
+  }
 }
 
 form {
