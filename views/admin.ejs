@@ -17,46 +17,50 @@
 
       td {
         border-bottom: 1px solid rgb(53, 53, 53);
+        position: relative;
       }
     }
 
-    .select-wrapper {
-      position: relative;
+    .arrow {
       display: inline-block;
-    }
-
-    .select-wrapper select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      padding-right: 2em;
-    }
-
-    .select-wrapper:after {
       font-family: "Poppins", sans-serif;
       font-size: 1.1rem;
       color: white;
-      content: ">";
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%) rotate(90deg);
+      transform: rotate(90deg);
       pointer-events: none;
-      transition: transform 0.2s ease-in;
+      transition: transform 0.15s;
     }
 
-    .select-wrapper.open::after {
-      transform: translateY(-50%) rotate(270deg);
+    .arrow.open {
+      transform: rotate(270deg);
     }
 
-    .form-select {
-      background-image: none;
-      background-color: transparent;
-      border: none;
-      border-bottom: 1px solid rgb(75, 75, 75);
+    .animated-select-button {
+      border: 1px solid rgb(69, 69, 69);
+      border-radius: 7px;
       color: white;
-      border-radius: 1px;
-      padding-inline: 2px;
+    }
+
+    .animated-select-button:focus {
+      border: 1px solid white;
+    }
+
+    .animated-select-list {
+      top: 40px;
+      left: 10px;
+      list-style: none;
+      transition: all 0.15s;
+      opacity: 0;
+      border: 1px solid rgb(69, 69, 69);
+      border-radius: 7px;
+      z-index: 9999;
+      background-color: rgb(21, 21, 21);
+    }
+
+    .animated-select-list.shown {
+      display: flex;
+      opacity: 1;
+      top: 50px;
     }
   </style>
 </head>
@@ -65,7 +69,7 @@
   <div id="container">
     <%- include("templates/nav") %>
 
-    <table class="table table-hover">
+    <table class="table m-5 w-auto">
       <thead>
         <tr>
           <th>Name</th>
@@ -79,12 +83,12 @@
           <td><%= user.name %></td>
           <td><%= user.email %></td>
           <td>
-            <div class="select-wrapper">
-              <select class="form-select">
-                <option value="user" <%= user.role = 'user'  ? ' selected' : '' %>>user</option>
-                <option value="admin" <%= user.role == 'admin' ? ' selected' : '' %>>admin</option>
-              </select>
-            </div>
+            <!-- TODO fix and finish animated select dropdown -->
+            <button class="animated-select-button ps-2 pe-2 px-2 bg-transparent"><%= user.role %><span class="arrow ms-5">></span></button>
+            <ul class="animated-select-list d-flex flex-column align-items-start justify-content-center position-absolute gap-2 m-0 p-3">
+              <li>user</li>
+              <li>admin</li>
+            </ul>
           </td>
         </tr>
         <% } %>
@@ -94,12 +98,7 @@
     <%- include("templates/footer") %>
   </div>
 
-  <script>
-    document.querySelectorAll(".form-select").forEach((select) => {
-      select.addEventListener("click", () => select.parentElement.classList.toggle("open"));
-      select.addEventListener("blur", () => select.parentElement.classList.remove("open"));
-    });
-  </script>
+  <script src="/scripts/admin.js"></script>
 </body>
 
 </html>
