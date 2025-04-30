@@ -93,7 +93,7 @@ function isAdmin(req, res, next) {
   return res.status(403).render("error", {
     errorTitle: "Unauthorized",
     errorMessage: "ERR 403: You are not authorized to view this page",
-    link: "/home",
+    link: "/",
     buttonText: "Home",
     anon: true,
   });
