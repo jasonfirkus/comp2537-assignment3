@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 import "dotenv/config";
 
 import MongoStore from "connect-mongo";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import session from "express-session";
 
 import { createServer } from "livereload";
@@ -19,6 +19,7 @@ const HOUR_IN_SECONDS = 60 * 60;
 
 const client = new MongoClient(process.env.MONGODB_URI);
 const db = (await client.connect()).db("users");
+const USERS = db.collection("users");
 app.use(
   session({
     secret: process.env.EXPRESS_SESSION_SECRET,
@@ -56,6 +57,10 @@ const loginSchema = Joi.object({
   email: Joi.string().email().max(30).required(),
   password: Joi.string().max(20).required(),
 });
+const updateUserSchema = Joi.object({
+  id: Joi.string().max(24).required(),
+  role: Joi.string().max(5).required(),
+});
 
 /**
  * Middleware function to check if a user has a valid session and
@@ -72,21 +77,33 @@ function isAuthenticated(req, res, next) {
   return res.redirect("/");
 }
 
+/**
+ * Middleware function to check if a user has the "admin" role and
+ * allows them to continue if they do.
+ *
+ * @param {Object} req - The express request object.
+ * @param {Object} res - The express response object.
+ * @param {Function} next - The next middleware function.
+ */
+
+function isAdmin(req, res, next) {
+  if (req.session?.role == "admin") {
+    return next();
+  }
+  return res.status(403).render("error", {
+    errorTitle: "Unauthorized",
+    errorMessage: "ERR 403: You are not authorized to view this page",
+    link: "/home",
+    buttonText: "Home",
+    anon: true,
+  });
+}
+
 app.get("/", (req, res) => {
   res.render("home", { anon: !req.session?.userId, name: req.session?.name });
 });
 
-app.get("/admin", isAuthenticated, async (req, res) => {
-  if (req.session?.role != "admin") {
-    return res.status(403).render("error", {
-      errorTitle: "Unauthorized",
-      errorMessage: "ERR 403: You are not authorized to view this page",
-      link: "/login",
-      buttonText: "Login",
-      anon: true,
-    });
-  }
-
+app.get("/admin", isAuthenticated, isAdmin, async (req, res) => {
   const users = await db
     .collection("users")
     .find(
@@ -96,7 +113,7 @@ app.get("/admin", isAuthenticated, async (req, res) => {
           name: 1,
           email: 1,
           role: 1,
-          _id: 0,
+          _id: 1,
         },
       }
     )
@@ -122,6 +139,35 @@ app.get("/logout", isAuthenticated, (req, res) => {
   return res.redirect("/");
 });
 
+app.put("/users/:id", isAuthenticated, isAdmin, async (req, res) => {
+  try {
+    const {
+      error: validationError,
+      value: { id, role },
+    } = updateUserSchema.validate(
+      { id: req.params.id, role: req.body.role },
+      { stripUnknown: true }
+    );
+
+    if (validationError) {
+      return res
+        .status(400)
+        .json({ message: "Failed to update user role", error: validationError });
+    }
+
+    const response = await USERS.updateOne(
+      { _id: ObjectId.createFromHexString(id) },
+      { $set: { role } }
+    );
+
+    console.log("Successfully updated role for user with id:", id);
+    res.status(200).send("Successfully updated user role");
+  } catch (error) {
+    console.error(`Failed to update role for user with id: ${id}`, error);
+    res.status(500).send("Failed to update user role");
+  }
+});
+
 app.post("/signup", async (req, res) => {
   try {
     const {
@@ -141,7 +187,7 @@ app.post("/signup", async (req, res) => {
       });
     }
 
-    const { insertedId } = await db.collection("users").insertOne({
+    const { insertedId } = await USERS.insertOne({
       name,
       email,
       password: await bcrypt.hash(password, 10),
@@ -155,7 +201,7 @@ app.post("/signup", async (req, res) => {
     console.log("Inserted user with id: ", insertedId);
     res.redirect("/members");
   } catch (error) {
-    console.log("Error inserting user", error);
+    console.error("Error inserting user", error);
     res.status(500).json({ message: "Error inserting user", error });
   }
 });
@@ -179,7 +225,7 @@ app.post("/login", async (req, res) => {
       });
     }
 
-    const user = await db.collection("users").findOne({ email });
+    const user = await USERS.findOne({ email });
     if (!user) {
       return res.status(400).render("error", {
         errorTitle: "Login Error",
@@ -207,7 +253,7 @@ app.post("/login", async (req, res) => {
       });
     }
   } catch (error) {
-    console.log("Error logging in user", error);
+    console.error("Error logging in user", error);
     res.status(500).json({ message: "Error logging in user", error });
   }
 });

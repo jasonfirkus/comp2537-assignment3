@@ -17,9 +17,6 @@
 
       td {
         border-bottom: 1px solid rgb(53, 53, 53);
-
-        text-align: left;
-        vertical-align: middle;
       }
     }
 
@@ -104,6 +101,7 @@
     <table class="table m-5 w-auto">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Name</th>
           <th>Email</th>
           <th>Role</th>
@@ -111,15 +109,15 @@
       </thead>
       <tbody>
         <% for (const user of users) { %>
-        <tr>
-          <td><%= user.name %></td>
-          <td><%= user.email %></td>
+        <tr data-user-id="<%= user._id %>">
+          <td class="text-left align-middle"><%= user._id %></td>
+          <td class="text-left align-middle"><%= user.name %></td>
+          <td class="text-left align-middle"><%= user.email %></td>
           <td class="position-relative">
-            <!-- TODO fix and finish animated select dropdown -->
             <button class="animated-select-button d-flex align-items-center justify-content-between bg-transparent"><%= user.role %><span class="arrow">></span></button>
             <ul class="animated-select-list flex-column align-items-start justify-content-center position-absolute m-0 p-1">
-              <li class="animated-list-option">user</li>
-              <li class="animated-list-option">admin</li>
+              <li class="animated-list-option" data-role="user">user</li>
+              <li class="animated-list-option" data-role="admin">admin</li>
             </ul>
           </td>
         </tr>
