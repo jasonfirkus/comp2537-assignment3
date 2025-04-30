@@ -18,7 +18,12 @@
       padding: 10px;
 
       header {
-        padding-top: 25dvh;
+        padding-top: 23dvh;
+        padding-bottom: 5dvh;
+
+        h1 {
+          margin-left: 12%;
+        }
       }
     }
   </style>
@@ -26,9 +31,9 @@
 
 <body>
   <div id="container">
-    <header class="d-flex flex-column justify-content-center align-items-center">
+    <header class="d-flex flex-column justify-content-center align-items-start w-100">
       <%- include('templates/nav') %>
-      <h1 class="fs-1">My Cars</h1>
+      <h1 class="fs-1 fw-bold">My Cars</h1>
     </header>
 
     <div class="container py-5 px-0 mx-0 w-100">
