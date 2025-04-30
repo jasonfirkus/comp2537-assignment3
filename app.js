@@ -95,7 +95,7 @@ function isAdmin(req, res, next) {
     errorMessage: "ERR 403: You are not authorized to view this page",
     link: "/",
     buttonText: "Home",
-    anon: true,
+    anon: false,
   });
 }
 
