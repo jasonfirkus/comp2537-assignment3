@@ -17,7 +17,9 @@
 
       td {
         border-bottom: 1px solid rgb(53, 53, 53);
-        position: relative;
+
+        text-align: left;
+        vertical-align: middle;
       }
     }
 
@@ -25,10 +27,10 @@
       display: inline-block;
       font-family: "Poppins", sans-serif;
       font-size: 1.1rem;
-      color: white;
+      color: rgb(69, 69, 69);
       transform: rotate(90deg);
       pointer-events: none;
-      transition: transform 0.15s;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .arrow.open {
@@ -36,6 +38,8 @@
     }
 
     .animated-select-button {
+      width: 120px;
+      padding: 6px 10px;
       border: 1px solid rgb(69, 69, 69);
       border-radius: 7px;
       color: white;
@@ -46,21 +50,49 @@
     }
 
     .animated-select-list {
-      top: 40px;
-      left: 10px;
+      display: none;
       list-style: none;
-      transition: all 0.15s;
+      z-index: 9999;
+
+      transition:
+        opacity 150ms ease-in-out,
+        top 200ms cubic-bezier(0.16, 1, 0.3, 1),
+        left 200ms cubic-bezier(0.16, 1, 0.3, 1),
+        display 2s;
+      transition-behavior: allow-discrete;
       opacity: 0;
+      top: 45px;
+      left: 6px;
+
       border: 1px solid rgb(69, 69, 69);
       border-radius: 7px;
-      z-index: 9999;
       background-color: rgb(21, 21, 21);
+      width: 120px;
+      box-shadow: var(--shadow-primary);
+
+      .animated-list-option {
+        width: 100%;
+        border-radius: 4px;
+        padding: 6px 8px;
+        cursor: default;
+      }
+
+      .animated-list-option:hover {
+        background-color: rgb(48, 48, 48);
+      }
     }
 
-    .animated-select-list.shown {
+    .animated-select-list.open {
       display: flex;
       opacity: 1;
-      top: 50px;
+      top: 53px;
+      left: 8px;
+
+      @starting-style {
+        opacity: 0;
+        top: 45px;
+        left: 6px;
+      }
     }
   </style>
 </head>
@@ -82,12 +114,12 @@
         <tr>
           <td><%= user.name %></td>
           <td><%= user.email %></td>
-          <td>
+          <td class="position-relative">
             <!-- TODO fix and finish animated select dropdown -->
-            <button class="animated-select-button ps-2 pe-2 px-2 bg-transparent"><%= user.role %><span class="arrow ms-5">></span></button>
-            <ul class="animated-select-list d-flex flex-column align-items-start justify-content-center position-absolute gap-2 m-0 p-3">
-              <li>user</li>
-              <li>admin</li>
+            <button class="animated-select-button d-flex align-items-center justify-content-between bg-transparent"><%= user.role %><span class="arrow">></span></button>
+            <ul class="animated-select-list flex-column align-items-start justify-content-center position-absolute m-0 p-1">
+              <li class="animated-list-option">user</li>
+              <li class="animated-list-option">admin</li>
             </ul>
           </td>
         </tr>

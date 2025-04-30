@@ -29,11 +29,18 @@
       #wrapper {
         margin-top: auto;
         margin-bottom: auto;
-        gap: 100px;
+        gap: 5vw;
 
         p {
           color: rgb(170, 170, 170);
         }
+      }
+    }
+
+    @media (width <=1045px) {
+      #container #wrapper {
+        flex-direction: column !important;
+        gap: 40px;
       }
     }
   </style>
@@ -41,7 +48,7 @@
 
 <body>
   <div id="container">
-    <div id="wrapper" class="d-flex flex-row align-items-center justify-content-center">
+    <div id="wrapper" class="d-flex flex-row align-items-center justify-content-center mx-5">
       <div class="d-flex flex-column justify-content-center">
         <h1 class="fs-1 m-0"><%= anon ? 'Please sign up or login' : 'Hello, ' + name %></h1>
 

@@ -1,14 +1,12 @@
-const ROLES = ["user", "admin"];
-
 document.querySelectorAll(".animated-select-button").forEach((button) => {
+  const { firstElementChild: arrow, nextElementSibling: list } = button;
+
   button.addEventListener("click", () => {
-    button.firstElementChild.classList.toggle("open");
-    button.nextElementSibling.classList.toggle("shown");
+    arrow.classList.toggle("open");
+    list.classList.toggle("open");
   });
   button.addEventListener("blur", () => {
-    button.firstElementChild.classList.toggle("open");
-    button.nextElementSibling.classList.toggle("shown");
+    arrow.classList.remove("open");
+    list.classList.remove("open");
   });
 });
-
-function showOptions(button) {}
