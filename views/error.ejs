@@ -16,9 +16,11 @@
   <div class="gap-2" id="container">
     <%- include('templates/nav') %>
 
-    <h1 class="fw-bold fs-1"><%= errorTitle %></h1>
-    <p><%= errorMessage %></p>
-    <a class="btn btn-primary" href="<%= link %>"><%= buttonText %></a>
+    <main>
+      <h1 class="fw-bold fs-1"><%= errorTitle %></h1>
+      <p><%= errorMessage %></p>
+      <a class="btn btn-primary" href="<%= link %>"><%= buttonText %></a>
+    </main>
 
     <%- include('templates/footer') %>
   </div>

@@ -10,20 +10,22 @@
   <div id="container">
     <%- include('templates/nav') %>
 
-    <div id="form-wrapper">
-      <h1 class="mb-3">Login</h1>
-      <form action="/login" method="POST">
-        <div class="form-floating">
-          <input placeholder="Email" type="email" name="email" class="form-control" id="email" autocomplete="off" />
-          <label class="text-secondary" for="email">Email</label>
-        </div>
-        <div class="form-floating">
-          <input placeholder="Password" type="password" name="password" class="form-control" id="password" autocomplete="off" />
-          <label class="text-secondary" for="password">Password</label>
-        </div>
-        <input type="submit" class="btn btn-primary mt-2" />
-      </form>
-    </div>
+    <main>
+      <div id="form-wrapper">
+        <h1 class="mb-3">Login</h1>
+        <form action="/login" method="POST">
+          <div class="form-floating">
+            <input placeholder="Email" type="email" name="email" class="form-control" id="email" autocomplete="off" />
+            <label class="text-secondary" for="email">Email</label>
+          </div>
+          <div class="form-floating">
+            <input placeholder="Password" type="password" name="password" class="form-control" id="password" autocomplete="off" />
+            <label class="text-secondary" for="password">Password</label>
+          </div>
+          <input type="submit" class="btn btn-primary mt-2" />
+        </form>
+      </div>
+    </main>
 
     <%- include('templates/footer') %>
   </div>
