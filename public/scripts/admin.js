@@ -16,12 +16,11 @@ document.querySelectorAll(".animated-select-button").forEach((button) => {
   }
 });
 
-//FIXME some bug here where option is null sometimes
 function updateUserRole(event, button) {
   const { nodeValue: buttonText } = button.firstChild;
-  const { target: option, currentTarget: optionList } = event;
+  const { currentTarget: option } = event;
   const { role } = option.dataset;
-  const otherOption = optionList.nextElementSibling ?? optionList.previousElementSibling;
+  const otherOption = option.nextElementSibling ?? option.previousElementSibling;
 
   if (buttonText == role) return;
 
