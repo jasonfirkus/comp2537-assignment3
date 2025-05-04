@@ -1,3 +1,34 @@
+new FinisherHeader({
+  count: 60,
+  size: {
+    min: 1,
+    max: 13,
+    pulse: 0,
+  },
+  speed: {
+    x: {
+      min: 0,
+      max: 0.1,
+    },
+    y: {
+      min: 0,
+      max: 0.05,
+    },
+  },
+  colors: {
+    // background: "#070707",
+    background: "#0f0f0f",
+    particles: ["#ffffff"],
+  },
+  blending: "screen",
+  opacity: {
+    center: 0.45,
+    edge: 0.6,
+  },
+  skew: 0,
+  shapes: ["c", "s", "t"],
+});
+
 // new FinisherHeader({
 //   count: 12,
 //   size: {
@@ -27,33 +58,3 @@
 //   skew: -2,
 //   shapes: ["c"],
 // });
-
-new FinisherHeader({
-  count: 60,
-  size: {
-    min: 1,
-    max: 13,
-    pulse: 0,
-  },
-  speed: {
-    x: {
-      min: 0,
-      max: 0.1,
-    },
-    y: {
-      min: 0,
-      max: 0.05,
-    },
-  },
-  colors: {
-    background: "#151515",
-    particles: ["#ffffff"],
-  },
-  blending: "screen",
-  opacity: {
-    center: 0.45,
-    edge: 0.6,
-  },
-  skew: -2,
-  shapes: ["c", "s", "t"],
-});

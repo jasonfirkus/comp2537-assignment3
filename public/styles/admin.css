@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 #table-wrapper {
-  background-color: rgb(31, 31, 31);
+  background-color: var(--grey);
   border-radius: 15px;
 
   .table {
@@ -68,11 +68,11 @@
   transition-behavior: allow-discrete;
   opacity: 0;
   top: 45px;
-  left: 6px;
+  left: 18px;
 
   border: 1px solid rgb(69, 69, 69);
   border-radius: 7px;
-  background-color: rgb(21, 21, 21);
+  background-color: var(--grey);
   width: 120px;
   box-shadow: var(--shadow-primary);
 
@@ -92,11 +92,11 @@
   display: flex;
   opacity: 1;
   top: 53px;
-  left: 8px;
+  left: 20px;
 
   @starting-style {
     opacity: 0;
     top: 45px;
-    left: 6px;
+    left: 18px;
   }
 }

@@ -16,12 +16,15 @@
       color: rgb(207, 207, 207);
       margin-bottom: 25px;
     }
+
+    body {
+      background: var(--bg-primary);
+    }
   </style>
 </head>
 
 <body>
   <div id="container">
-    <header id="header" class="finisher-header"></header>
     <%- include('templates/nav') %>
 
     <main>
@@ -32,8 +35,6 @@
 
     <%- include('templates/footer') %>
   </div>
-  <script src="/scripts/finisher-header.es5.min.js"></script>
-  <script src="/scripts/header.js"></script>
 </body>
 
 </html>

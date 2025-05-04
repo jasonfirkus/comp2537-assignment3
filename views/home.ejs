@@ -6,6 +6,10 @@
   <%- include("templates/head") %>
 
   <style>
+    body {
+      background: var(--bg-primary);
+    }
+
     .hidden {
       display: none;
     }
@@ -48,7 +52,6 @@
 
 <body>
   <div id="container">
-    <header id="header" class="finisher-header"></header>
     <div id="wrapper" class="d-flex flex-row align-items-center justify-content-center mx-5">
       <div class="d-flex flex-column justify-content-center">
         <h1 class="fs-1 m-0"><%= anon ? 'Please sign up or login' : 'Hello, ' + name %></h1>
@@ -61,8 +64,6 @@
 
     <%- include("templates/footer") %>
   </div>
-  <script src="/scripts/finisher-header.es5.min.js"></script>
-  <script src="/scripts/header.js"></script>
 </body>
 
 </html>

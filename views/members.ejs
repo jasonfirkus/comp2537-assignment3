@@ -4,14 +4,19 @@
 <head>
   <title>Members</title>
   <%- include('templates/head') %>
+
+  <style>
+    body {
+      background: var(--bg-primary);
+    }
+  </style>
 </head>
 
 <body>
   <div id="container">
-    <header id="header" class="finisher-header"></header>
     <%- include('templates/nav') %>
 
-    <main>
+    <main class="justify-content-start">
       <h1 class="heading">Cars</h1>
 
       <div class="container py-3 px-0 mx-0 w-100">
@@ -31,8 +36,6 @@
 
     <%- include('templates/footer') %>
   </div>
-  <script src="/scripts/finisher-header.es5.min.js"></script>
-  <script src="/scripts/header.js"></script>
 </body>
 
 </html>

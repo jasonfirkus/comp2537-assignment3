@@ -11,6 +11,14 @@
     rgb(148, 64, 228)
   );
   --shadow-primary: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 255, 255, 0.05);
+  --bg-grey: #0f0f0f;
+  --bg-black: #070707;
+  --bg-primary: fixed linear-gradient(transparent, var(--bg-black) 50%),
+    fixed repeating-linear-gradient(#2b2b2b, #2b2b2b 1px, transparent 1px, transparent 100px),
+    fixed
+      repeating-linear-gradient(to right, #2b2b2b, #2b2b2b 1px, transparent 1px, transparent 100px)
+      var(--bg-black);
+  --grey: rgb(31, 31, 31);
 }
 
 * {
@@ -19,14 +27,14 @@
 
 #header {
   z-index: -1;
-  height: 400px;
+  height: calc(100% - 137px);
   position: absolute;
   top: 0;
   width: 100%;
 }
 
 body {
-  background-color: rgb(21, 21, 21);
+  background-color: var(--bg-grey);
   font-family: "Geist", sans-serif;
   margin: 0;
 
@@ -40,7 +48,7 @@ body {
 .heading {
   align-self: self-start;
   font-size: 3rem;
-  margin: 0 0 30px 0;
+  margin: 110px 0 30px 0;
 }
 
 #container {
@@ -141,6 +149,7 @@ nav {
 }
 #nav-container {
   backdrop-filter: blur(20px);
+  /* background-color: rgba(44, 44, 44, 0.4); */
   background-color: rgba(0, 0, 0, 0.4);
   box-shadow: var(--shadow-primary);
 
