@@ -10,13 +10,14 @@
 
 <body>
   <div id="container">
+    <header id="header" class="finisher-header"></header>
     <%- include("templates/nav") %>
 
     <main>
       <h1 class="heading">Users</h1>
 
-      <div id="table-wrapper" class="d-flex justify-content-center align-items-center p-2">
-        <table class="table m-5">
+      <div id="table-wrapper" class="d-flex justify-content-center align-items-center px-4 py-3">
+        <table class="table mx-1">
           <thead>
             <tr></tr>
             <th>ID</th>
@@ -54,7 +55,9 @@
     <%- include("templates/footer") %>
   </div>
 
+  <script src="/scripts/finisher-header.es5.min.js"></script>
   <script src="/scripts/admin.js"></script>
+  <script src="/scripts/header.js"></script>
 </body>
 
 </html>

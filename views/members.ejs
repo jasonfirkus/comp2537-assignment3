@@ -8,12 +8,13 @@
 
 <body>
   <div id="container">
+    <header id="header" class="finisher-header"></header>
     <%- include('templates/nav') %>
 
     <main>
       <h1 class="heading">Cars</h1>
 
-      <div class="container py-5 px-0 mx-0 w-100">
+      <div class="container py-3 px-0 mx-0 w-100">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           <div class="col d-flex align-items-center justify-content-center">
             <img src="/assets/lexus-lc.jpg" alt="Lexus LC" class="img-fluid" />
@@ -30,6 +31,8 @@
 
     <%- include('templates/footer') %>
   </div>
+  <script src="/scripts/finisher-header.es5.min.js"></script>
+  <script src="/scripts/header.js"></script>
 </body>
 
 </html>

@@ -17,6 +17,14 @@
   box-sizing: border-box;
 }
 
+#header {
+  z-index: -1;
+  height: 400px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
 body {
   background-color: rgb(21, 21, 21);
   font-family: "Geist", sans-serif;
@@ -133,7 +141,7 @@ nav {
 }
 #nav-container {
   backdrop-filter: blur(20px);
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.4);
   box-shadow: var(--shadow-primary);
 
   .nav-item {
