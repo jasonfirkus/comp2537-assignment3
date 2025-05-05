@@ -199,13 +199,9 @@ nav {
   background-color: var(--bg-grey);
   z-index: 9999;
   top: 0;
-  right: 0;
-  transition: all 0.2s ease-in;
-  /* transition-behavior: allow-discrete; */
-
-  @starting-style {
-    right: -100vw;
-  }
+  right: -100vw;
+  transition: all 0.2s;
+  transition-behavior: allow-discrete;
 
   #close-offcanvas-nav {
     cursor: pointer;
@@ -225,7 +221,7 @@ nav {
     list-style: none;
     color: var(--text-grey);
 
-    li {
+    li:not(:last-child) {
       font-size: 1.9rem;
       letter-spacing: 5px;
       width: max-content;
@@ -236,8 +232,16 @@ nav {
     }
   }
 }
+#offcanvas-nav.open {
+  display: block !important;
+  right: 0;
 
-@media (width <= 550px) {
+  @starting-style {
+    right: -100vw;
+  }
+}
+
+@media (width <= 630px) {
   #nav-container {
     gap: 35vw;
   }

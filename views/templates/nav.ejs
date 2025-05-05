@@ -1,6 +1,6 @@
 <!-- FIXME mobile totally broken -->
 <nav class="navbar navbar-expand" data-bs-theme="dark">
-  <div id="nav-container" class="container w-auto mt-3 py-3 px-4 rounded-pill">
+  <div id="nav-container" class="d-flex flex-row align-items-center justify-content-center w-auto mt-3 py-3 px-4 rounded-pill">
     <a class="navbar-brand border-0 bg-transparent m-0 p-0 ps-1 lh-base text-light text-uppercase" href="/">
       <img src="/assets/lexus-logo-white-32.png" alt="Lexus">&nbsp;Lexus
     </a>
@@ -33,14 +33,16 @@
   </div>
 </nav>
 
-<div id="offcanvas-nav" class="position-absolute" hidden>
-  <svg id="close-offcanvas-nav" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x position-absolute top-0 end-0">
-    <path d="M18 6 6 18" />
-    <path d="m6 6 12 12" />
-  </svg>
+<div id="offcanvas-nav" class="position-fixed d-none">
+  <div class="p-3 position-absolute top-0 end-0">
+    <svg id="close-offcanvas-nav" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </svg>
+  </div>
   <div class="p-5 m-4 mt-5">
     <h1 class="mb-3">LEXUS</h1>
-    <ul class="p-1 d-flex flex-column gap-2">
+    <ul class="p-0 d-flex flex-column gap-2">
       <li class="nav-item p-0">
         <a class="nav-link border-0 rounded-pill text-uppercase" href="/">Home</a>
       </li>
@@ -51,6 +53,12 @@
 
       <li class="nav-item p-0">
         <a class="nav-link border-0 rounded-pill text-uppercase" href="/admin">Admin</a>
+      </li>
+
+      <li class="nav-item mt-4 d-flex gap-2">
+        <a class="btn btn-primary <%= anon ? '' : 'd-none' %>" href="/login">Login</a>
+        <a class="btn btn-secondary <%= anon ? '' : 'd-none' %>" href="/signup">Signup</a>
+        <a class="btn btn-primary <%= anon ? 'd-none' : '' %>" href="/logout">Logout</a>
       </li>
     </ul>
   </div>

@@ -99,7 +99,10 @@ function isAdmin(req, res, next) {
 }
 
 app.get("/", (req, res) => {
-  res.render("home", { anon: !req.session?.userId, name: req.session?.name });
+  res.render("home", {
+    anon: !req.session?.userId,
+    name: req.session?.name,
+  });
 });
 
 app.get("/admin", isAuthenticated, isAdmin, async (req, res) => {
