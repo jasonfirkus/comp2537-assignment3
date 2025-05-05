@@ -10,12 +10,19 @@ import MongoStore from "connect-mongo";
 import { MongoClient, ObjectId } from "mongodb";
 import session from "express-session";
 
-import { createServer } from "livereload";
-import connectLiveReload from "connect-livereload";
-
 const app = express();
 const PORT = 3000;
 const HOUR_IN_SECONDS = 60 * 60;
+
+if (process.env.NODE_ENV == "development") {
+  const { createServer } = await import("livereload");
+  const { default: connectLiveReload } = await import("connect-livereload");
+
+  const liveReloadServer = createServer({ extraExts: ["ejs"] });
+  liveReloadServer.watch("./public/");
+  liveReloadServer.watch("./views/");
+  app.use(connectLiveReload());
+}
 
 const client = new MongoClient(process.env.MONGODB_URI);
 const db = (await client.connect()).db("users");
@@ -35,13 +42,6 @@ app.use(
     cookie: { maxAge: 1000 * HOUR_IN_SECONDS },
   })
 );
-
-if (process.env.NODE_ENV == "development") {
-  const liveReloadServer = createServer({ extraExts: ["ejs"] });
-  liveReloadServer.watch("./public/");
-  liveReloadServer.watch("./views/");
-  app.use(connectLiveReload());
-}
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
