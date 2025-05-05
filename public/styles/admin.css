@@ -1,12 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
+#container {
+  overflow-x: hidden;
+}
+
+#h1-wrapper {
+  max-width: 100%;
+
+  .heading {
+    width: calc(clamp(675px, 60vw, 1000px) + 48px);
+  }
+}
+
 #table-wrapper {
   background-color: var(--grey);
   border-radius: 15px;
+  overflow-x: auto;
+  max-width: 100%;
+  scrollbar-color: var(--bg-black) var(--grey);
 
   .table {
     color: white;
-    width: 55vw;
+    width: clamp(600px, 60vw, 1000px);
 
     th {
       border-bottom: 1px solid rgb(53, 53, 53);

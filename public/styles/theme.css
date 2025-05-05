@@ -47,7 +47,6 @@ body {
 }
 
 .heading {
-  align-self: self-start;
   font-size: 3rem;
   margin: 110px 0 30px 0;
 }
@@ -64,9 +63,11 @@ body {
 main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   flex: 1;
+  width: 100%;
+  padding-inline: 10%;
 }
 
 footer {
