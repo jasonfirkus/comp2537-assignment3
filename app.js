@@ -85,7 +85,6 @@ function isAuthenticated(req, res, next) {
  * @param {Object} res - The express response object.
  * @param {Function} next - The next middleware function.
  */
-
 function isAdmin(req, res, next) {
   if (req.session?.role == "admin") {
     return next();

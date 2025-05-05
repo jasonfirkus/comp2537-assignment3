@@ -19,6 +19,7 @@
       repeating-linear-gradient(to right, #2b2b2b, #2b2b2b 1px, transparent 1px, transparent 100px)
       var(--bg-black);
   --grey: rgb(31, 31, 31);
+  --text-grey: rgb(165, 165, 165);
 }
 
 * {
@@ -149,15 +150,36 @@ nav {
 }
 #nav-container {
   backdrop-filter: blur(20px);
-  /* background-color: rgba(44, 44, 44, 0.4); */
   background-color: rgba(0, 0, 0, 0.4);
   box-shadow: var(--shadow-primary);
+  gap: clamp(15px, 2.5vw, 35px);
+
+  #open-offcanvas-nav {
+    cursor: pointer;
+    stroke: var(--text-grey);
+    transition: all 0.2s ease-in;
+  }
+  #open-offcanvas-nav:hover {
+    stroke: white;
+  }
+
+  .navbar-brand {
+    letter-spacing: 5px;
+  }
+
+  .navbar-nav {
+    gap: clamp(0, 0.5vw, 100px);
+
+    li:last-child {
+      margin-left: clamp(15px, 2.5vw, 35px);
+    }
+  }
 
   .nav-item {
     align-content: center;
   }
   .nav-link {
-    color: rgb(165, 165, 165);
+    color: var(--text-grey);
     background-color: transparent;
     padding: 5px 12px;
   }
@@ -169,4 +191,60 @@ nav {
 
 .fs-1 {
   font-size: 3.5rem !important;
+}
+
+#offcanvas-nav {
+  height: 100dvh;
+  width: 100vw;
+  background-color: var(--bg-grey);
+  z-index: 9999;
+  top: 0;
+  right: 0;
+  transition: all 0.2s ease-in;
+  /* transition-behavior: allow-discrete; */
+
+  @starting-style {
+    right: -100vw;
+  }
+
+  #close-offcanvas-nav {
+    cursor: pointer;
+    stroke: var(--text-grey);
+    transition: all 0.2s ease-in;
+  }
+  #close-offcanvas-nav:hover {
+    stroke: white;
+  }
+
+  h1 {
+    font-size: 3rem;
+    letter-spacing: 10px;
+  }
+
+  ul {
+    list-style: none;
+    color: var(--text-grey);
+
+    li {
+      font-size: 1.9rem;
+      letter-spacing: 5px;
+      width: max-content;
+
+      :hover {
+        color: white;
+      }
+    }
+  }
+}
+
+@media (width <= 550px) {
+  #nav-container {
+    gap: 35vw;
+  }
+  .lucide {
+    display: block !important;
+  }
+  .navbar-nav {
+    display: none;
+  }
 }
