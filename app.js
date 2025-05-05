@@ -36,10 +36,12 @@ app.use(
   })
 );
 
-const liveReloadServer = createServer({ extraExts: ["ejs"] });
-liveReloadServer.watch("./public/");
-liveReloadServer.watch("./views/");
-app.use(connectLiveReload());
+if (process.env.NODE_ENV == "development") {
+  const liveReloadServer = createServer({ extraExts: ["ejs"] });
+  liveReloadServer.watch("./public/");
+  liveReloadServer.watch("./views/");
+  app.use(connectLiveReload());
+}
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
