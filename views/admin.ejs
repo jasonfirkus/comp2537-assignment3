@@ -10,49 +10,31 @@
 
 <body>
   <div id="container">
-    <header id="header" class="finisher-header"></header>
-    <%- include("templates/nav") %>
+    <div class="finisher-header">
+      <%- include("templates/nav") %>
 
-    <main class="justify-content-start">
-      <div id="h1-wrapper">
-        <h1 class="heading text-left">Users</h1>
-      </div>
+      <main class="justify-content-start">
+        <div id="h1-wrapper">
+          <h1 class="heading text-left">Users</h1>
+        </div>
 
-      <div id="table-wrapper" class="px-4 py-3">
-        <table class="table mx-1">
-          <thead>
-            <tr></tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for (const user of users) { %>
-            <tr data-user-id="<%= user._id %>">
-              <td class="text-left align-middle"><%= user._id %></td>
-              <td class="text-left align-middle"><%= user.name %></td>
-              <td class="text-left align-middle"><%= user.email %></td>
-              <td class="position-relative">
-                <button class="animated-select-button d-flex align-items-center justify-content-between bg-transparent"><%= user.role %><span class="arrow">></span></button>
-                <ul class="animated-select-list flex-column align-items-start justify-content-center position-absolute m-0 p-1">
-                  <li class="animated-list-option d-flex justify-content-between" data-role="user">
-                    <span>user</span>
-                    <span class="is-selected"><%= user.role == "user" ? "✓" : "" %></span>
-                  </li>
-                  <li class="animated-list-option d-flex justify-content-between" data-role="admin">
-                    <span>admin</span>
-                    <span class="is-selected"><%= user.role == "admin" ? "✓" : "" %></span>
-                  </li>
-                </ul>
-              </td>
-            </tr>
-            <% } %>
-          </tbody>
-        </table>
-      </div>
-    </main>
+        <div id="table-wrapper" class="px-4 py-3">
+          <table class="table mx-1">
+            <thead>
+              <tr></tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%- include("templates/users") %>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
 
     <%- include("templates/footer") %>
   </div>

@@ -26,14 +26,6 @@
   box-sizing: border-box;
 }
 
-#header {
-  z-index: -1;
-  height: calc(100% - 137px);
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
 body {
   background-color: var(--bg-grey);
   font-family: "Geist", sans-serif;
@@ -60,6 +52,15 @@ body {
   min-height: 100dvh;
 }
 
+.finisher-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -68,6 +69,8 @@ main {
   flex: 1;
   width: 100%;
   padding-inline: 10%;
+  min-height: 85dvh;
+  height: auto;
 }
 
 footer {

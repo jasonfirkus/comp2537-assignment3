@@ -8,29 +8,30 @@
 
 <body>
   <div id="container">
-    <header id="header" class="finisher-header"></header>
-    <%- include('templates/nav') %>
+    <div class="finisher-header">
+      <%- include('templates/nav') %>
 
-    <main>
-      <div id="form-wrapper">
-        <h1 class="mb-3">Signup</h1>
-        <form action="/signup" method="POST">
-          <div class="form-floating">
-            <input class="form-control" placeholder="Name" type="text" name="name" id="name" autocomplete="off" />
-            <label class="text-secondary" for="name">Name</label>
-          </div>
-          <div class="form-floating">
-            <input class="form-control" placeholder="Email" type="email" name="email" id="email" autocomplete="off" />
-            <label class="text-secondary" for="email">Email</label>
-          </div>
-          <div class="form-floating">
-            <input class="form-control" placeholder="Password" type="password" name="password" id="password" autocomplete="off" />
-            <label class="text-secondary" for="password">Password</label>
-          </div>
-          <input class="btn btn-primary mt-2" type="submit" />
-        </form>
-      </div>
-    </main>
+      <main>
+        <div id="form-wrapper">
+          <h1 class="mb-3">Signup</h1>
+          <form action="/signup" method="POST">
+            <div class="form-floating">
+              <input class="form-control" placeholder="Name" type="text" name="name" id="name" autocomplete="off" />
+              <label class="text-secondary" for="name">Name</label>
+            </div>
+            <div class="form-floating">
+              <input class="form-control" placeholder="Email" type="email" name="email" id="email" autocomplete="off" />
+              <label class="text-secondary" for="email">Email</label>
+            </div>
+            <div class="form-floating">
+              <input class="form-control" placeholder="Password" type="password" name="password" id="password" autocomplete="off" />
+              <label class="text-secondary" for="password">Password</label>
+            </div>
+            <input class="btn btn-primary mt-2" type="submit" />
+          </form>
+        </div>
+      </main>
+    </div>
 
     <%- include('templates/footer') %>
   </div>
