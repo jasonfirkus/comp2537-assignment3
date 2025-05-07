@@ -92,7 +92,7 @@ form {
   .form-control {
     border: var(--grey-border-primary);
     padding: 15px 25px 15px 25px;
-    width: 300px;
+    width: clamp(200px, 50vw, 300px);
     border-radius: 10px;
     background-color: var(--input-bg-primary);
     color: white;
@@ -118,7 +118,7 @@ form {
   justify-content: center;
   align-items: center;
   background-color: rgb(31, 31, 31);
-  padding: 65px;
+  padding: clamp(60px, 10vw, 65px);
   border-radius: 20px;
   box-shadow: var(--shadow-primary);
   border: var(--grey-border-primary);
