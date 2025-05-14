@@ -1,0 +1,125 @@
+body {
+  background: var(--bg-primary);
+}
+
+.heading {
+  width: max-content;
+}
+
+#loader-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  h1 {
+    font-size: 2.2rem;
+  }
+}
+
+#heading-wrapper {
+  padding-left: 14.8%;
+  overflow: hidden;
+
+  p {
+    color: var(--light-grey);
+    font-size: 1.2rem;
+  }
+}
+
+#board {
+  --cols: 3;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 200px);
+  grid-template-rows: repeat(2, 270px);
+  gap: 50px;
+  perspective: 1000px;
+  background-color: rgba(85, 85, 85, 0.123);
+  backdrop-filter: blur(5px);
+
+  border: 1px solid rgb(54, 54, 54);
+  border-radius: 50px;
+  padding: 50px;
+}
+
+.pokemon-card {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: 100%;
+
+  .inner {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.4s;
+    cursor: pointer;
+    width: 200px;
+
+    .front,
+    .back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+
+      /* prevent text-selection / highlight */
+      user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+
+    .front {
+      transform: rotateY(180deg) translateX(-150px) translateY(35px);
+    }
+    .back {
+      transform: rotateY(0deg);
+    }
+  }
+
+  .inner.flipped {
+    transform: rotateY(180deg) translateX(-150px);
+  }
+}
+
+.pokeball-loader {
+  box-sizing: initial !important;
+  position: relative;
+  height: 100px;
+  width: 100px;
+  background: linear-gradient(to bottom, rgb(254, 0, 1) 50%, white 50%);
+  border-radius: 50%;
+  border: 8px solid black;
+  animation: spin 1s linear infinite;
+}
+
+.pokeball-loader::before {
+  content: "";
+  position: absolute;
+  height: 8px;
+  width: 100px;
+  background: black;
+  top: 50px;
+  transform: translatey(-50%);
+}
+
+.pokeball-loader::after {
+  content: "";
+  position: absolute;
+  height: 38px;
+  width: 38px;
+  border-radius: 50%;
+  background: white;
+  top: 50px;
+  left: 50px;
+  transform: translate(-50%, -50%);
+  box-shadow: inset 0 0 0 8px black, inset 0 0 0 10px white, inset 0 0 0 12px black;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

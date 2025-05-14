@@ -135,7 +135,10 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/members", isAuthenticated, (req, res) => {
-  res.render("members", { anon: false, name: req.session?.name });
+  res.render("members", {
+    anon: false,
+    name: req.session?.name,
+  });
 });
 
 app.get("/logout", isAuthenticated, (req, res) => {

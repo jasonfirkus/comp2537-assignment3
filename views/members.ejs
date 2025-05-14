@@ -5,41 +5,41 @@
   <title>Members</title>
   <%- include('templates/head') %>
 
-  <style>
-    body {
-      background: var(--bg-primary);
-    }
-
-    .heading {
-      margin-left: 14.8%;
-    }
-  </style>
+  <link rel="stylesheet" href="/styles/members.css">
 </head>
 
 <body>
+  <template>
+    <div class="pokemon-card position-relative">
+      <div class="inner">
+        <img src="/assets/pokemon-card-back.webp" alt="Pokemon Card" class="back" width="200" draggable="false">
+        <img src="" alt="" class="front" width="200" draggable="false">
+      </div>
+    </div>
+  </template>
+
   <div id="container">
     <%- include('templates/nav') %>
 
-    <main class="justify-content-start px-4 mb-5">
-      <h1 class="heading align-self-start">Cars</h1>
+    <div id="loader-wrapper">
+      <div class="pokeball-loader"></div>
+      <h1>Loading...</h1>
+    </div>
 
-      <div class="container py-3 px-0 mx-0 w-100">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <div class="col d-flex align-items-center justify-content-center">
-            <img src="/assets/lexus-lc.jpg" alt="Lexus LC" class="img-fluid" />
-          </div>
-          <div class="col d-flex align-items-center justify-content-center">
-            <img src="/assets/lexus-is.jpg" alt="Lexus IS" class="img-fluid" />
-          </div>
-          <div class="col d-flex align-items-center justify-content-center">
-            <img src="/assets/lexus-lfa.jpg" alt="Lexus LFA" class="img-fluid" />
-          </div>
-        </div>
+    <main class="justify-content-start px-4 mb-5" hidden>
+      <div id="heading-wrapper" class="w-100 text-start">
+        <h1 class="heading mb-2">Pokemon Matching Game</h1>
+        <p>Match all the cards to win!</h2>
+      </div>
+
+      <div id="board" class="my-5">
       </div>
     </main>
 
     <%- include('templates/footer') %>
   </div>
+
+  <script src="/scripts/members.js" type="module"></script>
 </body>
 
 </html>

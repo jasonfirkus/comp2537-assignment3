@@ -19,6 +19,7 @@
       repeating-linear-gradient(to right, #2b2b2b, #2b2b2b 1px, transparent 1px, transparent 100px)
       var(--bg-black);
   --grey: rgb(31, 31, 31);
+  --light-grey: rgb(170, 170, 170);
   --text-grey: rgb(165, 165, 165);
 }
 
@@ -40,7 +41,7 @@ body {
 
 .heading {
   font-size: 3rem;
-  margin: 90px 0 30px 0;
+  margin: 70px 0 30px 0;
 }
 
 #container {
