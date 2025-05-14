@@ -40,7 +40,7 @@ body {
 
   border: 1px solid rgb(54, 54, 54);
   border-radius: 50px;
-  padding: 50px;
+  padding: 75px;
 }
 
 .pokemon-card {
@@ -69,7 +69,12 @@ body {
     }
 
     .front {
-      transform: rotateY(180deg) translateX(-150px) translateY(35px);
+      transform: rotateY(180deg) translateX(-150px) translateY(15px);
+      text-align: center;
+
+      p {
+        text-transform: capitalize;
+      }
     }
     .back {
       transform: rotateY(0deg);
