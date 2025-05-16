@@ -1,12 +1,6 @@
-const NUM_POKEMON = 1302;
+import { handleClick } from "./game.js";
 
-const GAME_STATE = {
-  TOTAL_PAIRS: 3,
-  PAIRS_LEFT: 3,
-  COUNT_OF_FLIPS: 0,
-  PAIRS_MATCHED: 0,
-  LAST_FLIPPED: [],
-};
+const NUM_POKEMON = 1302;
 
 /**
  * Returns a Promise that resolves to an array of objects containing the name and official artwork URL of a set of random Pokemons.
@@ -32,7 +26,7 @@ async function getRandomPokemonSet(amount) {
   return Promise.all(pokemonsPromise);
 }
 
-async function createPokemon(amount = 6) {
+export async function createPokemon(amount = 6) {
   let pokemons = await getRandomPokemonSet(amount / 2);
   pokemons = [...pokemons, ...pokemons];
 
@@ -66,32 +60,10 @@ async function createPokemon(amount = 6) {
 }
 
 await createPokemon();
-document.querySelectorAll(".inner").forEach((card) =>
-  card.addEventListener("click", (event) => {
-    if (card.classList.contains("flipped")) return;
 
-    console.log("GAME_STATE", GAME_STATE);
+document
+  .querySelectorAll(".inner")
+  .forEach((card) => card.addEventListener("click", () => handleClick(card)));
 
-    card.classList.add("flipped");
-    GAME_STATE.COUNT_OF_FLIPS++;
-    GAME_STATE.LAST_FLIPPED.push(card);
-
-    if (GAME_STATE.LAST_FLIPPED.length != 2) return;
-
-    const [firstCard, secondCard] = GAME_STATE.LAST_FLIPPED;
-
-    if (firstCard.parentElement.dataset.pokemon == secondCard.parentElement.dataset.pokemon) {
-      GAME_STATE.PAIRS_LEFT--;
-      GAME_STATE.PAIRS_MATCHED++;
-      GAME_STATE.LAST_FLIPPED = [];
-    } else {
-      setTimeout(() => {
-        firstCard.classList.remove("flipped");
-        secondCard.classList.remove("flipped");
-        GAME_STATE.LAST_FLIPPED = [];
-      }, 1000);
-    }
-  })
-);
 document.getElementById("loader-wrapper").hidden = true;
 document.querySelector("main").hidden = false;

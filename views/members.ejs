@@ -5,6 +5,7 @@
   <title>Members</title>
   <%- include('templates/head') %>
 
+  <link rel="stylesheet" href="/styles/loader.css">
   <link rel="stylesheet" href="/styles/members.css">
 </head>
 
@@ -35,14 +36,44 @@
         <p>Match all the cards to win!</h2>
       </div>
 
-      <div id="board" class="my-5">
+      <div id="game" class="d-flex flex-row justify-content-center align-items-center gap-5">
+        <div id="control-panel" class="d-flex flex-column justify-content-center align-items-center gap-3 p-3">
+          <div id="difficulty-toggle" class="game-setup">
+            <label>
+              <input type="radio" name="difficulty" value="easy" checked>
+              <span>Easy</span>
+            </label>
+            <label>
+              <input type="radio" name="difficulty" value="medium">
+              <span>Medium</span>
+            </label>
+            <label>
+              <input type="radio" name="difficulty" value="hard">
+              <span>Hard</span>
+            </label>
+          </div>
+          <div id="start" class="btn btn-primary game-setup">Start</div>
+
+          <div id="timer" class="during-game" hidden></div>
+          <div id="kpis" class="during-game" hidden></div>
+          <div id="reset" class="btn btn-primary during-game" hidden>Reset</div>
+        </div>
+
+        <div id="board" class="my-5">
+          <div id="overlay">
+            <h1 class="fw-normal">Select a difficulty and start the game to play!</h1>
+          </div>
+        </div>
       </div>
     </main>
 
     <%- include('templates/footer') %>
   </div>
 
+  <script src="/scripts/game-state.js"></script>
+  <script src="/scripts/progressbar.min.js"></script>
   <script src="/scripts/members.js" type="module"></script>
+  <script src="/scripts/game.js" type="module"></script>
 </body>
 
 </html>

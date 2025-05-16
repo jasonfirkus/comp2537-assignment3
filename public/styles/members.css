@@ -28,19 +28,104 @@ body {
   }
 }
 
+#game {
+  /* height: 700px; */
+}
+
 #board {
   --cols: 3;
   display: grid;
   grid-template-columns: repeat(var(--cols), 200px);
   grid-template-rows: repeat(2, 270px);
   gap: 50px;
-  perspective: 1000px;
   background-color: rgba(85, 85, 85, 0.123);
   backdrop-filter: blur(5px);
 
-  border: 1px solid rgb(54, 54, 54);
-  border-radius: 50px;
+  /* border: 1px solid rgb(54, 54, 54); */
+  border-radius: 15px;
   padding: 75px;
+  position: relative;
+
+  #overlay {
+    z-index: 9999;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+
+    h1 {
+      color: rgb(182, 182, 182);
+      font-size: 1.3rem;
+    }
+  }
+}
+
+#control-panel {
+  background-color: rgba(85, 85, 85, 0.123);
+  backdrop-filter: blur(5px);
+  height: 100%;
+  border-radius: 15px;
+  /* border: 1px solid rgb(54, 54, 54); */
+  box-shadow: var(--shadow-primary);
+
+  #difficulty-toggle {
+    color: white;
+    background-color: rgb(32, 32, 32);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    gap: 5px;
+    border: 1px solid rgb(56, 56, 56);
+
+    label {
+      input {
+        display: none;
+      }
+      input:checked + span {
+        background-color: rgb(51, 51, 51);
+        font-weight: 500;
+      }
+
+      span {
+        text-align: center;
+        border-radius: 8px;
+        padding-block: 6px;
+        width: 90px;
+        display: inline-block;
+        cursor: pointer;
+        transition: all 0.15s ease-in-out;
+        user-select: none;
+      }
+    }
+  }
+
+  #start {
+    background-color: rgb(7, 124, 7);
+    border: 1px solid white;
+    /* border: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
+  }
+  #start:hover {
+    background-color: rgb(16, 163, 16);
+  }
+
+  #timer {
+    width: 150px;
+    height: 150px;
+  }
+
+  #reset {
+    background-color: rgba(212, 11, 11, 0.747);
+    border: 1px solid white;
+  }
+  #reset:hover {
+    background-color: rgba(255, 0, 0, 0.815);
+  }
 }
 
 .pokemon-card {
@@ -83,48 +168,5 @@ body {
 
   .inner.flipped {
     transform: rotateY(180deg) translateX(-150px);
-  }
-}
-
-.pokeball-loader {
-  box-sizing: initial !important;
-  position: relative;
-  height: 100px;
-  width: 100px;
-  background: linear-gradient(to bottom, rgb(254, 0, 1) 50%, white 50%);
-  border-radius: 50%;
-  border: 8px solid black;
-  animation: spin 1s linear infinite;
-}
-
-.pokeball-loader::before {
-  content: "";
-  position: absolute;
-  height: 8px;
-  width: 100px;
-  background: black;
-  top: 50px;
-  transform: translatey(-50%);
-}
-
-.pokeball-loader::after {
-  content: "";
-  position: absolute;
-  height: 38px;
-  width: 38px;
-  border-radius: 50%;
-  background: white;
-  top: 50px;
-  left: 50px;
-  transform: translate(-50%, -50%);
-  box-shadow: inset 0 0 0 8px black, inset 0 0 0 10px white, inset 0 0 0 12px black;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }
