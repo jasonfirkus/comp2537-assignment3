@@ -5,10 +5,11 @@ const GAME_STATE = {
   PAIRS_MATCHED: 0,
   LAST_FLIPPED: [],
   DIFFICULTY: "easy",
+  TIMER: null,
 };
 
 const DIFFICULTY = {
-  easy: { cards: 6 },
-  medium: { cards: 8 },
-  hard: { cards: 10 },
+  easy: { cards: 6, timeLimit: 30 },
+  medium: { cards: 8, timeLimit: 25 },
+  hard: { cards: 10, timeLimit: 20 },
 };

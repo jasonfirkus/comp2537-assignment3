@@ -26,8 +26,8 @@ async function getRandomPokemonSet(amount) {
   return Promise.all(pokemonsPromise);
 }
 
-export async function createPokemon(amount = 6) {
-  let pokemons = await getRandomPokemonSet(amount / 2);
+export async function createPokemon() {
+  let pokemons = await getRandomPokemonSet(GAME_STATE.TOTAL_PAIRS);
   pokemons = [...pokemons, ...pokemons];
 
   const pokemonNodes = pokemons.map((pokemon) => {
@@ -55,8 +55,6 @@ export async function createPokemon(amount = 6) {
   }
 
   document.getElementById("board").appendChild(df);
-  GAME_STATE.TOTAL_PAIRS = amount / 2;
-  GAME_STATE.PAIRS_LEFT = amount / 2;
 }
 
 await createPokemon();

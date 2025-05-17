@@ -26,63 +26,144 @@ export function handleClick(card) {
   }
 }
 
+/**
+ * Shows the loader and hides the game board.
+ * This is called when the game starts or the board needs to be reinitialized.
+ */
+function showLoader() {
+  document.getElementById("loader-wrapper").hidden = false;
+  document.querySelector("main").hidden = true;
+}
+
+/**
+ * Hides the loader and shows the game board.
+ * This is called when the game has finished loading the cards.
+ */
+function hideLoader() {
+  document.getElementById("loader-wrapper").hidden = true;
+  document.querySelector("main").hidden = false;
+}
+
+/**
+ * Removes all the cards from the game board.
+ * This is called when the game needs to be reinitialized.
+ */
 function removeCards() {
   document.querySelectorAll(".pokemon-card").forEach((card) => card.remove());
 }
 
+/**
+ * Updates the CSS variable '--cols' on the board element to match the total number of pairs.
+ * This adjusts the grid layout of the game board based on the current game state.
+ */
 function updateBoardColumns() {
   document.getElementById("board").style.setProperty("--cols", GAME_STATE.TOTAL_PAIRS);
+}
+
+/**
+ * Toggles the visibility of elements related to game setup and gameplay.
+ * This function hides elements with the class "game-setup" and shows
+ * elements with the class "during-game" or vice versa, depending on their
+ * current visibility.
+ */
+function convertControlPanel() {
+  document.querySelectorAll(".game-setup").forEach((element) => (element.hidden = !element.hidden));
+  document
+    .querySelectorAll(".during-game")
+    .forEach((element) => (element.hidden = !element.hidden));
 }
 
 async function startGame() {
   const numCards = DIFFICULTY[GAME_STATE.DIFFICULTY].cards;
 
   if (GAME_STATE.TOTAL_PAIRS != numCards / 2) {
-    document.getElementById("loader-wrapper").hidden = false;
-    document.querySelector("main").hidden = true;
+    showLoader();
 
     GAME_STATE.TOTAL_PAIRS = numCards / 2;
     GAME_STATE.PAIRS_LEFT = numCards / 2;
 
     removeCards();
     updateBoardColumns();
-    await createPokemon(numCards);
+    await createPokemon();
   }
 
-  createTimer().animate(1.0);
+  createTimer();
+  GAME_STATE.TIMER.animate(1.0);
 
-  document.querySelectorAll(".game-setup").forEach((element) => (element.hidden = true));
-  document.querySelectorAll(".during-game").forEach((element) => (element.hidden = false));
+  convertControlPanel();
   document.getElementById("overlay").hidden = true;
 
-  document.getElementById("loader-wrapper").hidden = true;
-  document.querySelector("main").hidden = false;
+  hideLoader();
 }
 
+/**
+ * Creates a new timer based on the current game state.
+ *
+ * If the timer already exists, it is destroyed before a new one is created.
+ *
+ * The timer is created with a linear easing and a duration equal to the time
+ * limit of the game in milliseconds. The timer's color transitions from
+ * yellow to red over its duration.
+ *
+ * The timer's text is updated on each step to show the remaining time in seconds.
+ *
+ * The timer is stored in the GAME_STATE object.
+ */
 function createTimer() {
+  if (GAME_STATE.TIMER) {
+    GAME_STATE.TIMER.destroy();
+  }
+
+  const timeLimit = DIFFICULTY[GAME_STATE.DIFFICULTY].timeLimit;
+
   const timer = new ProgressBar.Circle("#timer", {
-    color: "#aaa",
-    // This has to be the same size as the maximum width to
-    // prevent clipping
-    strokeWidth: 5,
-    // trailWidth: 5,
+    strokeWidth: 8,
     easing: "linear",
-    duration: 20000,
-    text: {},
-    from: { color: "#aaa", width: 5 },
-    to: { color: "#333", width: 5 },
+    duration: timeLimit * 1000,
+    text: { className: "timer-text" },
+    from: { color: "rgb(209, 153, 48)" },
+    to: { color: "rgb(223, 16, 16)" },
     step: (state, circle) => {
       circle.path.setAttribute("stroke", state.color);
 
-      const value = 20 - Math.round(20 * circle.value());
-      circle.setText(value);
+      const value = timeLimit - Math.round(timeLimit * circle.value());
+      circle.setText(`${value}`);
     },
   });
-  timer.text.style.fontFamily = '"Geist", sans-serif';
-  timer.text.style.fontSize = "3rem";
-  timer.text.style.fontWeight = "bold";
+  timer.path.style.strokeLinecap = "round";
 
-  return timer;
+  GAME_STATE.TIMER = timer;
+}
+
+/**
+ * Resets the game by restoring the initial game state, showing the loader,
+ * removing all existing cards from the board, and recreating the Pokemon
+ * cards based on the current game settings. It also updates the control
+ * panel to reflect the game state and hides the loader once the cards
+ * are ready.
+ */
+async function resetGame() {
+  resetGameState();
+
+  showLoader();
+
+  removeCards();
+  convertControlPanel();
+  await createPokemon(GAME_STATE.TOTAL_PAIRS * 2);
+
+  hideLoader();
+}
+
+/**
+ * Resets the game state to its initial values before starting a new game.
+ * It sets the count of flips to 0, pairs left to the total number of pairs,
+ * pairs matched to 0, and clears the last flipped cards.
+ */
+function resetGameState() {
+  GAME_STATE.COUNT_OF_FLIPS = 0;
+  GAME_STATE.PAIRS_LEFT = GAME_STATE.TOTAL_PAIRS;
+  GAME_STATE.PAIRS_MATCHED = 0;
+  GAME_STATE.LAST_FLIPPED = [];
 }
 
 document.getElementById("difficulty-toggle").addEventListener("change", (event) => {
@@ -90,3 +171,4 @@ document.getElementById("difficulty-toggle").addEventListener("change", (event) 
 });
 
 document.getElementById("start").addEventListener("click", () => startGame());
+document.getElementById("reset").addEventListener("click", () => resetGame());

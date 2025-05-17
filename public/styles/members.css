@@ -54,6 +54,7 @@ body {
     align-items: center;
     justify-content: center;
     inset: 0;
+    border-radius: 15px;
     background-color: rgba(0, 0, 0, 0.7);
 
     h1 {
@@ -70,6 +71,11 @@ body {
   border-radius: 15px;
   /* border: 1px solid rgb(54, 54, 54); */
   box-shadow: var(--shadow-primary);
+  padding: 30px !important;
+
+  .btn-primary {
+    width: 75px;
+  }
 
   #difficulty-toggle {
     color: white;
@@ -103,28 +109,16 @@ body {
     }
   }
 
-  #start {
-    background-color: rgb(7, 124, 7);
-    border: 1px solid white;
-    /* border: none;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
-      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
-  }
-  #start:hover {
-    background-color: rgb(16, 163, 16);
-  }
-
   #timer {
     width: 150px;
     height: 150px;
-  }
+    aspect-ratio: 1 / 1;
 
-  #reset {
-    background-color: rgba(212, 11, 11, 0.747);
-    border: 1px solid white;
-  }
-  #reset:hover {
-    background-color: rgba(255, 0, 0, 0.815);
+    .timer-text {
+      font-size: 3rem;
+      font-weight: bold;
+      color: rgb(255, 255, 255) !important;
+    }
   }
 }
 
