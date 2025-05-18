@@ -1,5 +1,16 @@
 import { createPokemon } from "./members.js";
 
+/**
+ * Handles the click event on a Pokemon card. If the card is already flipped or
+ * there are already two cards flipped, the function returns early. Otherwise, it
+ * flips the card and updates the game state. If two cards are flipped, it checks
+ * if they match. If they do, it updates the pairs left and matched count. If all
+ * pairs are matched, it stops the game timer. If they don't match, it flips the
+ * cards back after a delay.
+ *
+ * @param {HTMLElement} card - The card element that was clicked.
+ */
+
 export function handleClick(card) {
   console.log("GAME_STATE", GAME_STATE);
 
@@ -8,6 +19,8 @@ export function handleClick(card) {
   card.classList.add("flipped");
   GAME_STATE.COUNT_OF_FLIPS++;
   GAME_STATE.LAST_FLIPPED.push(card);
+
+  updateKPIs();
 
   if (GAME_STATE.LAST_FLIPPED.length != 2) return;
 
@@ -18,6 +31,8 @@ export function handleClick(card) {
     GAME_STATE.PAIRS_MATCHED++;
     GAME_STATE.LAST_FLIPPED = [];
 
+    updateKPIs();
+
     if (GAME_STATE.PAIRS_LEFT === 0) GAME_STATE.TIMER.stop();
   } else {
     setTimeout(() => {
@@ -25,6 +40,17 @@ export function handleClick(card) {
       secondCard.classList.remove("flipped");
       GAME_STATE.LAST_FLIPPED = [];
     }, 700);
+  }
+}
+
+/**
+ * Updates the numbers in the KPIs section of the header.
+ */
+function updateKPIs() {
+  const kpis = Array.from(document.getElementById("kpis").children);
+
+  for (const kpi of kpis) {
+    kpi.querySelector("span").textContent = GAME_STATE[kpi.dataset.kpi];
   }
 }
 
@@ -88,6 +114,13 @@ function convertControlPanel() {
     .forEach((element) => (element.hidden = !element.hidden));
 }
 
+/**
+ * Starts a new game of Pokemon Matching.
+ * If the game is already started, then this function does nothing.
+ * Otherwise, it shows the loader, resets the game state, removes any existing cards from the board, creates new cards, creates a timer, and starts the game.
+ * This function also sets up the control panel and hides the start text.
+ * Finally, it updates the KPIs and hides the loader.
+ */
 async function startGame() {
   const numCards = DIFFICULTY[GAME_STATE.DIFFICULTY].cards;
 
@@ -108,6 +141,7 @@ async function startGame() {
   convertControlPanel();
   document.getElementById("overlay").hidden = true;
   document.getElementById("start-text").hidden = true;
+  updateKPIs();
 
   hideLoader();
 }
