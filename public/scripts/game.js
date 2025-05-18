@@ -27,6 +27,7 @@ export function handleClick(card) {
   const [firstCard, secondCard] = GAME_STATE.LAST_FLIPPED;
 
   if (firstCard.parentElement.dataset.pokemon == secondCard.parentElement.dataset.pokemon) {
+    GAME_STATE.LAST_PAIRS.push(Date.now());
     GAME_STATE.PAIRS_LEFT--;
     GAME_STATE.PAIRS_MATCHED++;
     GAME_STATE.LAST_FLIPPED = [];
@@ -34,6 +35,8 @@ export function handleClick(card) {
     updateKPIs();
 
     if (GAME_STATE.PAIRS_LEFT === 0) GAME_STATE.TIMER.stop();
+
+    checkPowerup();
   } else {
     setTimeout(() => {
       firstCard.classList.remove("flipped");
@@ -41,6 +44,17 @@ export function handleClick(card) {
       GAME_STATE.LAST_FLIPPED = [];
     }, 700);
   }
+}
+
+function checkPowerup() {
+  if (GAME_STATE.LAST_PAIRS.length !== 2) return;
+
+  if (GAME_STATE.LAST_PAIRS[1] - GAME_STATE.LAST_PAIRS[0] < 1000) {
+    GAME_STATE.POWERUP_AVAILABLE = true;
+    document.getElementById("powerup-border").classList.add("active");
+  }
+
+  GAME_STATE.LAST_PAIRS.shift();
 }
 
 /**
@@ -58,11 +72,14 @@ function updateKPIs() {
  * Called when the game is over. Shows the overlay and either the winning text if the user won, or the losing text if the user lost.
  */
 function gameOver() {
+  console.log("Game Over executed");
   document.getElementById("overlay").hidden = false;
 
   if (GAME_STATE.PAIRS_LEFT === 0) {
     document.getElementById("winning-text").hidden = false;
   } else {
+    console.log("losing condition");
+
     document.getElementById("losing-text").hidden = false;
   }
 }
@@ -136,7 +153,8 @@ async function startGame() {
   }
 
   createTimer();
-  GAME_STATE.TIMER.animate(1.0, {}, () => gameOver());
+  //if you pass cb then it gets called not only when the timer ends put also when it is stopped or destroyed
+  GAME_STATE.TIMER.animate(1.0);
 
   convertControlPanel();
   document.getElementById("overlay").hidden = true;
@@ -178,6 +196,8 @@ function createTimer() {
 
       const value = timeLimit - Math.round(timeLimit * circle.value());
       circle.setText(`${value}`);
+
+      if (circle.value() == 0) gameOver();
     },
   });
   timer.path.style.strokeLinecap = "round";
@@ -218,6 +238,27 @@ function resetGameState() {
   GAME_STATE.PAIRS_LEFT = GAME_STATE.TOTAL_PAIRS;
   GAME_STATE.PAIRS_MATCHED = 0;
   GAME_STATE.LAST_FLIPPED = [];
+  GAME_STATE.LAST_PAIRS = [];
+  GAME_STATE.POWERUP_AVAILABLE = false;
+  document.getElementById("powerup-border").classList.remove("active");
+}
+
+function activatePowerup() {
+  if (!GAME_STATE.POWERUP_AVAILABLE) return;
+
+  const unknownCards = document.querySelectorAll(".inner:not(.flipped)");
+
+  for (const card of unknownCards) {
+    card.classList.add("flipped");
+  }
+
+  setTimeout(() => {
+    for (const card of unknownCards) {
+      card.classList.remove("flipped");
+    }
+  }, 1000);
+
+  document.getElementById("powerup-border").classList.remove("active");
 }
 
 document.getElementById("difficulty-toggle").addEventListener("change", (event) => {
@@ -226,3 +267,4 @@ document.getElementById("difficulty-toggle").addEventListener("change", (event) 
 
 document.getElementById("start").addEventListener("click", () => startGame());
 document.getElementById("reset").addEventListener("click", () => resetGame());
+document.getElementById("activate-powerup").addEventListener("click", () => activatePowerup());
