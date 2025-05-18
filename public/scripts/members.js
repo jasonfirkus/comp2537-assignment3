@@ -1,4 +1,4 @@
-import { handleClick } from "./game.js";
+import { handleClick, hideLoader } from "./game.js";
 
 const NUM_POKEMON = 1302;
 
@@ -26,6 +26,12 @@ async function getRandomPokemonSet(amount) {
   return Promise.all(pokemonsPromise);
 }
 
+/**
+ * Creates an array of Pokemon nodes with random images and names, and appends them to #board in a random order.
+ * Each Pokemon is duplicated to create pairs.
+ * Each Pokemon node is given a data attribute "pokemon" with the Pokemon's name, and a click event handler is added to trigger the game logic.
+ * @returns {Promise<void>}
+ */
 export async function createPokemon() {
   let pokemons = await getRandomPokemonSet(GAME_STATE.TOTAL_PAIRS);
   pokemons = [...pokemons, ...pokemons];
@@ -55,13 +61,12 @@ export async function createPokemon() {
   }
 
   document.getElementById("board").appendChild(df);
+
+  document
+    .querySelectorAll(".inner")
+    .forEach((card) => card.addEventListener("click", () => handleClick(card)));
 }
 
 await createPokemon();
 
-document
-  .querySelectorAll(".inner")
-  .forEach((card) => card.addEventListener("click", () => handleClick(card)));
-
-document.getElementById("loader-wrapper").hidden = true;
-document.querySelector("main").hidden = false;
+hideLoader();

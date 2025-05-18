@@ -36,7 +36,7 @@ body {
   grid-template-areas:
     ". top ."
     "left middle right";
-  gap: 35px;
+  gap: 15px;
 
   #top {
     grid-area: top;
@@ -75,11 +75,18 @@ body {
     justify-content: center;
     inset: 0;
     border-radius: 15px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.8);
 
-    h1 {
+    #start-text {
       color: rgb(182, 182, 182);
-      font-size: 1.3rem;
+      font-size: 1.5rem;
+    }
+
+    #losing-text,
+    #winning-text {
+      font-size: 3.5rem;
+      text-transform: uppercase;
+      letter-spacing: 10px;
     }
   }
 }

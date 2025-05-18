@@ -17,12 +17,27 @@ export function handleClick(card) {
     GAME_STATE.PAIRS_LEFT--;
     GAME_STATE.PAIRS_MATCHED++;
     GAME_STATE.LAST_FLIPPED = [];
+
+    if (GAME_STATE.PAIRS_LEFT === 0) GAME_STATE.TIMER.stop();
   } else {
     setTimeout(() => {
       firstCard.classList.remove("flipped");
       secondCard.classList.remove("flipped");
       GAME_STATE.LAST_FLIPPED = [];
-    }, 1000);
+    }, 700);
+  }
+}
+
+/**
+ * Called when the game is over. Shows the overlay and either the winning text if the user won, or the losing text if the user lost.
+ */
+function gameOver() {
+  document.getElementById("overlay").hidden = false;
+
+  if (GAME_STATE.PAIRS_LEFT === 0) {
+    document.getElementById("winning-text").hidden = false;
+  } else {
+    document.getElementById("losing-text").hidden = false;
   }
 }
 
@@ -39,7 +54,7 @@ function showLoader() {
  * Hides the loader and shows the game board.
  * This is called when the game has finished loading the cards.
  */
-function hideLoader() {
+export function hideLoader() {
   document.getElementById("loader-wrapper").hidden = true;
   document.querySelector("main").hidden = false;
 }
@@ -88,10 +103,11 @@ async function startGame() {
   }
 
   createTimer();
-  GAME_STATE.TIMER.animate(1.0);
+  GAME_STATE.TIMER.animate(1.0, {}, () => gameOver());
 
   convertControlPanel();
   document.getElementById("overlay").hidden = true;
+  document.getElementById("start-text").hidden = true;
 
   hideLoader();
 }
@@ -147,6 +163,10 @@ async function resetGame() {
 
   showLoader();
 
+  document.getElementById("overlay").hidden = false;
+  document.getElementById("start-text").hidden = false;
+  document.getElementById("winning-text").hidden = true;
+  document.getElementById("losing-text").hidden = true;
   removeCards();
   convertControlPanel();
   await createPokemon(GAME_STATE.TOTAL_PAIRS * 2);
