@@ -34,7 +34,10 @@ export function handleClick(card) {
 
     updateKPIs();
 
-    if (GAME_STATE.PAIRS_LEFT === 0) GAME_STATE.TIMER.stop();
+    if (GAME_STATE.PAIRS_LEFT === 0) {
+      GAME_STATE.TIMER.stop();
+      return gameOver();
+    }
 
     checkPowerup();
   } else {
@@ -76,7 +79,10 @@ function gameOver() {
   document.getElementById("overlay").hidden = false;
 
   if (GAME_STATE.PAIRS_LEFT === 0) {
+    console.log("winning condition");
+
     document.getElementById("winning-text").hidden = false;
+    // document.getElementById("losing-text").hidden = true;
   } else {
     console.log("losing condition");
 
@@ -197,7 +203,7 @@ function createTimer() {
       const value = timeLimit - Math.round(timeLimit * circle.value());
       circle.setText(`${value}`);
 
-      if (circle.value() == 0) gameOver();
+      if (circle.value() === 0.00001) gameOver();
     },
   });
   timer.path.style.strokeLinecap = "round";

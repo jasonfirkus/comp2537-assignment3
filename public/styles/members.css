@@ -55,6 +55,25 @@ body {
   }
 }
 
+#info-tooltip {
+  padding: 5px;
+  display: none;
+  position: fixed;
+  inset: 160px 150px;
+  color: white;
+  background-color: rgb(26, 26, 26);
+  box-shadow: var(--shadow-primary);
+  border: 1px solid rgb(38, 38, 38);
+  font-size: 0.8rem;
+  width: 170px;
+  height: 55px;
+  z-index: 9999;
+  padding: 5px 10px;
+  align-content: center;
+  text-align: center;
+  border-radius: 10px;
+}
+
 #board {
   grid-area: middle;
 
@@ -154,37 +173,49 @@ body {
     }
   }
 
-  #powerup-border > * {
-    cursor: not-allowed !important;
-    transition: all 0.2s ease-in;
-  }
-  #powerup-border {
+  #activate-powerup-wrapper {
     margin-top: 13px;
-    display: inline-block;
-    padding: 1px;
-    border-radius: 11px;
-    background: transparent;
-    filter: brightness(0.6);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
 
-    #activate-powerup {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: 190px;
-      padding-inline: 15px;
-      background-color: var(--input-bg-primary);
+    #powerup-border > * {
+      cursor: not-allowed !important;
+      transition: all 0.2s ease-in;
     }
-  }
-  #powerup-border.active {
-    background: var(--gradient-primary);
-    filter: unset;
+    #powerup-border {
+      display: inline-block;
+      padding: 1px;
+      border-radius: 11px;
+      background: transparent;
+      filter: brightness(0.6);
 
-    #activate-powerup:hover {
-      background-color: rgb(41, 41, 41);
+      #activate-powerup {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 190px;
+        padding-inline: 15px;
+        background-color: var(--input-bg-primary);
+      }
     }
-  }
-  #powerup-border.active > * {
-    cursor: pointer !important;
+    #powerup-border.active {
+      background: var(--gradient-primary);
+      filter: unset;
+
+      #activate-powerup:hover {
+        background-color: rgb(41, 41, 41);
+      }
+    }
+    #powerup-border.active > * {
+      cursor: pointer !important;
+    }
+
+    #info {
+      color: white;
+    }
   }
 
   #reset {
