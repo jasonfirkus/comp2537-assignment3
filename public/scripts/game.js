@@ -1,5 +1,8 @@
 import { createPokemon } from "./members.js";
 
+const infoIcon = document.getElementById("info");
+const tooltip = document.getElementById("info-tooltip");
+
 /**
  * Handles the click event on a Pokemon card. If the card is already flipped or
  * there are already two cards flipped, the function returns early. Otherwise, it
@@ -166,8 +169,19 @@ async function startGame() {
   document.getElementById("overlay").hidden = true;
   document.getElementById("start-text").hidden = true;
   updateKPIs();
+  updateTooltipPosition();
 
   hideLoader();
+}
+
+function updateTooltipPosition() {
+  const game = document.getElementById("game");
+  const infoIconPos = infoIcon.getBoundingClientRect();
+
+  game.style.setProperty("--tt-start-top", `${infoIconPos.top - 55}px`);
+
+  game.style.setProperty("--tt-top", `${infoIconPos.top - 60}px`);
+  game.style.setProperty("--tt-left", `${infoIconPos.left - 80}px`);
 }
 
 /**
@@ -274,3 +288,5 @@ document.getElementById("difficulty-toggle").addEventListener("change", (event) 
 document.getElementById("start").addEventListener("click", () => startGame());
 document.getElementById("reset").addEventListener("click", () => resetGame());
 document.getElementById("activate-powerup").addEventListener("click", () => activatePowerup());
+infoIcon.addEventListener("mouseenter", () => tooltip.classList.add("opened"));
+infoIcon.addEventListener("mouseleave", () => tooltip.classList.remove("opened"));
