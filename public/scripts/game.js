@@ -23,7 +23,7 @@ export function handleClick(card) {
   GAME_STATE.COUNT_OF_FLIPS++;
   GAME_STATE.LAST_FLIPPED.push(card);
 
-  updateKPIs();
+  updateStats();
 
   if (GAME_STATE.LAST_FLIPPED.length != 2) return;
 
@@ -35,7 +35,7 @@ export function handleClick(card) {
     GAME_STATE.PAIRS_MATCHED++;
     GAME_STATE.LAST_FLIPPED = [];
 
-    updateKPIs();
+    updateStats();
 
     if (GAME_STATE.PAIRS_LEFT === 0) {
       GAME_STATE.TIMER.stop();
@@ -52,6 +52,14 @@ export function handleClick(card) {
   }
 }
 
+/**
+ * Checks if a powerup should be awarded to the player.
+ * If the time between the last two pairs is less than 1 second, the powerup is awarded.
+ * The powerup is awarded by setting GAME_STATE.POWERUP_AVAILABLE to true
+ * and adding the "active" class to the powerup button.
+ * The oldest timestamp in GAME_STATE.LAST_PAIRS is then removed.
+ * If the length of GAME_STATE.LAST_PAIRS is not 2, the function does nothing.
+ */
 function checkPowerup() {
   if (GAME_STATE.LAST_PAIRS.length !== 2) return;
 
@@ -64,13 +72,13 @@ function checkPowerup() {
 }
 
 /**
- * Updates the numbers in the KPIs section of the header.
+ * Updates the numbers in the stats section of the header.
  */
-function updateKPIs() {
-  const kpis = Array.from(document.getElementById("kpis").children);
+function updateStats() {
+  const stats = Array.from(document.getElementById("stats").children);
 
-  for (const kpi of kpis) {
-    kpi.querySelector("span").textContent = GAME_STATE[kpi.dataset.kpi];
+  for (const stat of stats) {
+    stat.querySelector("span").textContent = GAME_STATE[stat.dataset.stats];
   }
 }
 
@@ -138,6 +146,8 @@ function convertControlPanel() {
   document
     .querySelectorAll(".during-game")
     .forEach((element) => (element.hidden = !element.hidden));
+
+  console.log("convertControlPanel finished");
 }
 
 /**
@@ -145,7 +155,7 @@ function convertControlPanel() {
  * If the game is already started, then this function does nothing.
  * Otherwise, it shows the loader, resets the game state, removes any existing cards from the board, creates new cards, creates a timer, and starts the game.
  * This function also sets up the control panel and hides the start text.
- * Finally, it updates the KPIs and hides the loader.
+ * Finally, it updates the stats and hides the loader.
  */
 async function startGame() {
   const numCards = DIFFICULTY[GAME_STATE.DIFFICULTY].cards;
@@ -168,14 +178,33 @@ async function startGame() {
   convertControlPanel();
   document.getElementById("overlay").hidden = true;
   document.getElementById("start-text").hidden = true;
-  updateKPIs();
-  updateTooltipPosition();
+  updateStats();
 
   hideLoader();
+
+  updateTooltipPosition(); //needs to be called after because main is hidden
 }
 
+/**
+ * Updates the CSS variables --tt-start-top, --tt-top, and --tt-left so that the
+ * info tooltip is positioned correctly relative to the info icon.
+ *
+ * The top of the tooltip is positioned 55px above the top of the info icon, and
+ * the left of the tooltip is positioned 80px to the left of the left of the info
+ * icon.
+ *
+ * The --tt-start-top variable is set to the y-coordinate of the top of the
+ * tooltip when it is at the starting position (i.e. not yet fully visible). This
+ * is used to animate the tooltip from the starting position to the final
+ * position.
+ */
 function updateTooltipPosition() {
   const game = document.getElementById("game");
+
+  console.log("updateTooltipPosition init");
+  if (!infoIcon.offsetParent) {
+    console.log("infoIcon is not displayed currently");
+  }
   const infoIconPos = infoIcon.getBoundingClientRect();
 
   game.style.setProperty("--tt-start-top", `${infoIconPos.top - 55}px`);
@@ -263,6 +292,11 @@ function resetGameState() {
   document.getElementById("powerup-border").classList.remove("active");
 }
 
+/**
+ * Activates the powerup by revealing all the remaining unmatched cards for 1 second.
+ * If the powerup is not available, this function does nothing.
+ * When the powerup is activated, the powerup button is deactivated until the player earns another powerup.
+ */
 function activatePowerup() {
   if (!GAME_STATE.POWERUP_AVAILABLE) return;
 

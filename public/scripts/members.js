@@ -67,6 +67,11 @@ export async function createPokemon() {
     .forEach((card) => card.addEventListener("click", () => handleClick(card)));
 }
 
+/**
+ * Toggles the theme of the game between light and dark mode when the theme toggle button is clicked.
+ * The theme is stored in the "data-theme" attribute of the HTML element.
+ * The theme toggle button is given a class of "theme-toggle--toggled" when the theme is dark.
+ */
 function activateThemeToggle() {
   const themeToggle = document.querySelector(".theme-toggle");
   const html = document.querySelector("html");

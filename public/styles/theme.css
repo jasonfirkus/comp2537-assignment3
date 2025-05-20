@@ -24,6 +24,7 @@
   --text-grey: rgb(165, 165, 165);
   --footer-border: 1px solid #1f1f1f;
   --nav-bg: rgba(0, 0, 0, 0.4);
+  --separator: rgba(29, 29, 29, 0.477);
 }
 
 * {
@@ -180,6 +181,11 @@ nav {
 
     li {
       align-content: center;
+    }
+    #separator {
+      width: 1px;
+      height: 20px;
+      background-color: var(--separator);
     }
   }
 
