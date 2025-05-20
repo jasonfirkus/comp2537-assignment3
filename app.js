@@ -134,7 +134,7 @@ app.get("/login", (req, res) => {
   res.render("login", { anon: true });
 });
 
-app.get("/game", isAuthenticated, (req, res) => {
+app.get("/game", (req, res) => {
   res.render("game", {
     anon: false,
     name: req.session?.name,

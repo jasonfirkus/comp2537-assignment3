@@ -13,7 +13,6 @@ const tooltip = document.getElementById("info-tooltip");
  *
  * @param {HTMLElement} card - The card element that was clicked.
  */
-
 export function handleClick(card) {
   console.log("GAME_STATE", GAME_STATE);
 
