@@ -13,6 +13,7 @@
   --shadow-primary: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 255, 255, 0.05);
   --bg-grey: #0f0f0f;
   --bg-black: #070707;
+  --bg-light: #e1e1e1;
   --bg-primary: fixed linear-gradient(transparent, var(--bg-black) 50%),
     fixed repeating-linear-gradient(#2b2b2b, #2b2b2b 1px, transparent 1px, transparent 100px),
     fixed
@@ -21,6 +22,8 @@
   --grey: rgb(31, 31, 31);
   --light-grey: rgb(170, 170, 170);
   --text-grey: rgb(165, 165, 165);
+  --footer-border: 1px solid #1f1f1f;
+  --nav-bg: rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -75,7 +78,7 @@ main {
 }
 
 footer {
-  border-top: 1px solid #1f1f1f;
+  border-top: var(--footer-border);
 
   ul {
     list-style: none;
@@ -155,7 +158,7 @@ nav {
 }
 #nav-container {
   backdrop-filter: blur(20px);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--nav-bg);
   box-shadow: var(--shadow-primary);
   gap: clamp(15px, 2.5vw, 35px);
 
@@ -175,8 +178,8 @@ nav {
   .navbar-nav {
     gap: clamp(0, 0.5vw, 100px);
 
-    li:last-child {
-      margin-left: clamp(15px, 2.5vw, 35px);
+    li {
+      align-content: center;
     }
   }
 
@@ -192,6 +195,10 @@ nav {
     color: white;
     background-color: rgb(22, 22, 22);
   }
+}
+
+.theme-toggle {
+  color: white;
 }
 
 .fs-1 {

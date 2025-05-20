@@ -1,6 +1,52 @@
 /* TODO add themeing */
-:root {
-  color-scheme: dark;
+[data-theme="dark"] {
+  --bg-primary: fixed linear-gradient(transparent, var(--bg-black) 50%),
+    fixed repeating-linear-gradient(#2b2b2b, #2b2b2b 1px, transparent 1px, transparent 100px),
+    fixed
+      repeating-linear-gradient(to right, #2b2b2b, #2b2b2b 1px, transparent 1px, transparent 100px)
+      var(--bg-black);
+  --bg-element-primary: rgb(17, 17, 17);
+  --overlay: rgba(0, 0, 0, 0.8);
+  --text-color-primary: white;
+  --difficulty-tgl-bg: rgb(32, 32, 32);
+  --difficulty-tgl-checked: rgb(51, 51, 51);
+  --border-primary: 1px solid rgb(56, 56, 56);
+}
+[data-theme="light"] {
+  --gridlines: #b3b3b3;
+  --bg-primary: fixed linear-gradient(transparent, var(--bg-light) 50%),
+    fixed
+      repeating-linear-gradient(
+        var(--gridlines),
+        var(--gridlines) 1px,
+        transparent 1px,
+        transparent 100px
+      ),
+    fixed
+      repeating-linear-gradient(
+        to right,
+        var(--gridlines),
+        var(--gridlines) 1px,
+        transparent 1px,
+        transparent 100px
+      )
+      var(--bg-light);
+  --shadow-primary: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px,
+    rgba(17, 17, 26, 0.1) 0px 16px 48px;
+  --bg-element-primary: rgb(17, 17, 17);
+  --text-color-primary: white;
+  --difficulty-tgl-bg: rgb(32, 32, 32);
+  --difficulty-tgl-checked: rgb(51, 51, 51);
+  --overlay: rgba(0, 0, 0, 0.6);
+  --footer-border: 1px solid rgb(204, 204, 204);
+  --nav-bg: rgba(101, 101, 101, 0.4);
+  --text-grey: rgb(236, 236, 236);
+  --light-grey: rgb(128, 128, 128);
+
+  /* --text-color-primary: black;
+  --difficulty-tgl-bg: rgb(225, 225, 225);
+  --difficulty-tgl-checked: rgb(200, 200, 200);
+  --border-primary: 1px solid rgb(180, 180, 180); */
 }
 
 body {
@@ -36,7 +82,6 @@ body {
 
 #game {
   display: grid;
-  /* width: 100vw; */
   grid-template-columns: 1fr auto 1fr;
   grid-template-rows: auto auto;
   grid-template-areas:
@@ -101,7 +146,7 @@ body {
   grid-template-columns: repeat(var(--cols), 200px);
   grid-template-rows: repeat(2, 270px);
   gap: 50px;
-  background-color: rgba(85, 85, 85, 0.123);
+  background-color: var(--bg-element-primary);
   backdrop-filter: blur(5px);
 
   /* border: 1px solid rgb(54, 54, 54); */
@@ -119,7 +164,7 @@ body {
     justify-content: center;
     inset: 0;
     border-radius: 15px;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: var(--overlay);
 
     #start-text {
       color: rgb(182, 182, 182);
@@ -136,7 +181,7 @@ body {
 }
 
 #control-panel {
-  background-color: rgba(85, 85, 85, 0.123);
+  background-color: var(--bg-element-primary);
   backdrop-filter: blur(5px);
   border-radius: 20px;
   /* border: 1px solid rgb(54, 54, 54); */
@@ -149,21 +194,21 @@ body {
   }
 
   #difficulty-toggle {
-    color: white;
-    background-color: rgb(32, 32, 32);
+    color: var(--text-color-primary);
+    background-color: var(--difficulty-tgl-bg);
     border-radius: 10px;
     display: flex;
     flex-direction: row;
     padding: 5px;
     gap: 5px;
-    border: 1px solid rgb(56, 56, 56);
+    border: var(--border-primary);
 
     label {
       input {
         display: none;
       }
       input:checked + span {
-        background-color: rgb(51, 51, 51);
+        background-color: var(--difficulty-tgl-checked);
         font-weight: 500;
       }
 
@@ -254,7 +299,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: rgb(26, 26, 26);
+  background-color: var(--bg-element-primary);
   border-radius: 20px;
   padding: 20px 30px;
 

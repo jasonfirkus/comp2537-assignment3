@@ -67,6 +67,19 @@ export async function createPokemon() {
     .forEach((card) => card.addEventListener("click", () => handleClick(card)));
 }
 
+function activateThemeToggle() {
+  const themeToggle = document.querySelector(".theme-toggle");
+  const html = document.querySelector("html");
+
+  themeToggle.addEventListener("click", () => {
+    let currentTheme = html.dataset.theme;
+    html.dataset.theme = currentTheme === "dark" ? "light" : "dark";
+
+    themeToggle.classList.toggle("theme-toggle--toggled");
+  });
+}
+
 await createPokemon();
+activateThemeToggle();
 
 hideLoader();

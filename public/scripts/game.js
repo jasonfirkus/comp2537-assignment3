@@ -217,7 +217,7 @@ function createTimer() {
       const value = timeLimit - Math.round(timeLimit * circle.value());
       circle.setText(`${value}`);
 
-      if (circle.value() === 0.00001) gameOver();
+      if (circle.value() >= 0.995 && circle.value() <= 1) gameOver();
     },
   });
   timer.path.style.strokeLinecap = "round";
