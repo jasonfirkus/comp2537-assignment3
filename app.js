@@ -134,8 +134,8 @@ app.get("/login", (req, res) => {
   res.render("login", { anon: true });
 });
 
-app.get("/members", isAuthenticated, (req, res) => {
-  res.render("members", {
+app.get("/game", isAuthenticated, (req, res) => {
+  res.render("game", {
     anon: false,
     name: req.session?.name,
   });
@@ -206,7 +206,7 @@ app.post("/signup", async (req, res) => {
     req.session.role = "user";
     req.session.save();
     console.log("Inserted user with id: ", insertedId);
-    res.redirect("/members");
+    res.redirect("/game");
   } catch (error) {
     console.error("Error inserting user", error);
     res.status(500).json({ message: "Error inserting user", error });
@@ -249,7 +249,7 @@ app.post("/login", async (req, res) => {
       req.session.role = user.role;
       req.session.save();
 
-      return res.redirect("/members");
+      return res.redirect("/game");
     } else {
       return res.status(400).render("error", {
         errorTitle: "Login Error",

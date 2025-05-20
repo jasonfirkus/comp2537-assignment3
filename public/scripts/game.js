@@ -1,4 +1,4 @@
-import { createPokemon } from "./members.js";
+import { createPokemon } from "./game-page.js";
 
 const infoIcon = document.getElementById("info");
 const tooltip = document.getElementById("info-tooltip");
