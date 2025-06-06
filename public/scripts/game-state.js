@@ -13,5 +13,5 @@ const GAME_STATE = {
 const DIFFICULTY = {
   easy: { cards: 6, timeLimit: 30 },
   medium: { cards: 8, timeLimit: 25 },
-  hard: { cards: 10, timeLimit: 20 },
+  hard: { cards: 10, timeLimit: 10 },
 };
